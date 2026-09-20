@@ -1,0 +1,171 @@
+import { Achievement, CharacterConfig, ScheduleEvent, UserProfile, UserProgress } from '../types';
+import { getTodayDateString } from './dateUtils';
+
+export const getInitialEvents = (): ScheduleEvent[] => {
+  const today = getTodayDateString();
+
+  return [
+    {
+      id: 'demo-1',
+      title: 'Java Class',
+      date: today,
+      startTime: '09:00',
+      endTime: '10:30',
+      category: 'College',
+      priority: 'high',
+      reminderMinutes: 15,
+      notes: 'Review Object-Oriented principles and bring the homework assignment.',
+      completed: true,
+      completedAt: new Date(Date.now() - 3 * 3600 * 1000).toISOString(),
+    },
+    {
+      id: 'demo-2',
+      title: 'Lunch',
+      date: today,
+      startTime: '11:30',
+      endTime: '12:30',
+      category: 'Personal',
+      priority: 'low',
+      reminderMinutes: 10,
+      notes: 'Healthy salad bowl & quick fresh air walk.',
+      completed: true,
+      completedAt: new Date(Date.now() - 1 * 3600 * 1000).toISOString(),
+    },
+    {
+      id: 'demo-3',
+      title: 'Project Review',
+      date: today,
+      startTime: '14:00',
+      endTime: '15:00',
+      category: 'Work',
+      priority: 'high',
+      reminderMinutes: 30,
+      notes: 'Demo new feature release and sprint retrospective with the engineering lead.',
+      completed: false,
+    },
+    {
+      id: 'demo-4',
+      title: 'Study',
+      date: today,
+      startTime: '17:00',
+      endTime: '18:30',
+      category: 'Study',
+      priority: 'medium',
+      reminderMinutes: 15,
+      notes: 'Algorithms and Data Structures practice: Dynamic Programming problems.',
+      completed: false,
+    },
+    {
+      id: 'demo-5',
+      title: 'Exercise',
+      date: today,
+      startTime: '19:00',
+      endTime: '20:00',
+      category: 'Exercise',
+      priority: 'medium',
+      reminderMinutes: 15,
+      notes: 'Cardio session & core workout routine at the gym.',
+      completed: false,
+    },
+  ];
+};
+
+export const initialAchievements: Achievement[] = [
+  {
+    id: 'ach-first-task',
+    title: 'First Task Completed',
+    description: 'Complete your first scheduled activity.',
+    icon: '🏆',
+    unlocked: true,
+    unlockedAt: new Date().toISOString(),
+    progress: 1,
+    maxProgress: 1,
+  },
+  {
+    id: 'ach-streak-3',
+    title: '3-Day Streak',
+    description: 'Maintain an active schedule streak for 3 consecutive days.',
+    icon: '🔥',
+    unlocked: true,
+    unlockedAt: new Date().toISOString(),
+    progress: 3,
+    maxProgress: 3,
+  },
+  {
+    id: 'ach-10-tasks',
+    title: '10 Tasks Completed',
+    description: 'Crush a total of 10 tasks in ToonMate.',
+    icon: '⭐',
+    unlocked: false,
+    progress: 6,
+    maxProgress: 10,
+  },
+  {
+    id: 'ach-perfect-day',
+    title: 'Perfect Day',
+    description: 'Complete 100% of all activities scheduled for a day.',
+    icon: '🚀',
+    unlocked: false,
+    progress: 2,
+    maxProgress: 5,
+  },
+  {
+    id: 'ach-early-bird',
+    title: 'Early Bird',
+    description: 'Conquer a task scheduled before 9:00 AM.',
+    icon: '🌅',
+    unlocked: true,
+    unlockedAt: new Date().toISOString(),
+    progress: 1,
+    maxProgress: 1,
+  },
+  {
+    id: 'ach-night-owl',
+    title: 'Night Owl',
+    description: 'Finish a scheduled task after 8:00 PM.',
+    icon: '🦉',
+    unlocked: false,
+    progress: 0,
+    maxProgress: 1,
+  },
+  {
+    id: 'ach-priority-crusher',
+    title: 'High-Priority Crusher',
+    description: 'Knock out 5 High-Priority tasks.',
+    icon: '⚡',
+    unlocked: false,
+    progress: 3,
+    maxProgress: 5,
+  },
+];
+
+export const initialProgress: UserProgress = {
+  xp: 350,
+  level: 2,
+  streakDays: 4,
+  lastActiveDate: getTodayDateString(),
+  totalCompleted: 8,
+  totalMissed: 1,
+};
+
+export const initialProfile: UserProfile = {
+  name: 'Chidd',
+  timeFormat: '12h',
+  theme: 'light',
+  soundEnabled: true,
+  speechEnabled: true,
+  speechVoice: '',
+  speechSpeed: 1.0,
+  speechPitch: 1.05,
+  speechVolume: 0.9,
+  defaultReminderMinutes: 15,
+};
+
+export const initialCharacter: CharacterConfig = {
+  id: 'char-default',
+  name: 'Bambu',
+  type: 'panda',
+  personality: 'friendly',
+  outfit: 'bowtie',
+  background: 'cozy-study',
+};
