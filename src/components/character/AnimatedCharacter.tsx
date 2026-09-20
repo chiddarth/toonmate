@@ -198,225 +198,315 @@ export const AnimatedCharacter: React.FC<AnimatedCharacterProps> = ({
   };
 
   // ==========================================
-  // 1. SHINCHAN (Shin-chan Nohara)
+  // 1. SHINCHAN (Shin-chan Nohara - Crayon Shin-chan)
   // ==========================================
   const renderShinchan = () => {
     const isWiggle = state === 'celebrating' || state === 'happy';
 
     return (
       <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-md">
-        {/* Shadow */}
-        <ellipse cx="100" cy="188" rx="45" ry="8" fill="rgba(0,0,0,0.12)" />
+        {/* Ground Ambient Shadow */}
+        <ellipse cx="100" cy="188" rx="46" ry="8" fill="rgba(0,0,0,0.14)" />
 
-        {/* Legs & Shoes */}
-        <rect x="80" y="152" width="12" height="24" fill="#fed7aa" rx="4" />
-        <rect x="108" y="152" width="12" height="24" fill="#fed7aa" rx="4" />
-        {/* Yellow Shoes */}
-        <ellipse cx="86" cy="178" rx="10" ry="7" fill="#facc15" stroke="#ca8a04" strokeWidth="1.5" />
-        <ellipse cx="114" cy="178" rx="10" ry="7" fill="#facc15" stroke="#ca8a04" strokeWidth="1.5" />
+        {/* Legs & White Socks */}
+        <g>
+          {/* Left Leg */}
+          <rect x="76" y="146" width="14" height="24" rx="6" fill="#fde2c7" stroke="#18181b" strokeWidth="2.5" />
+          <rect x="75" y="160" width="16" height="9" rx="2" fill="#ffffff" stroke="#18181b" strokeWidth="2" />
+          {/* Left Yellow Shoe */}
+          <path d="M 68 172 C 68 166 84 166 96 172 C 98 178 94 185 78 185 C 68 185 68 178 68 172 Z" fill="#facc15" stroke="#18181b" strokeWidth="2.5" />
+          <path d="M 69 181 Q 82 185 95 181" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" />
 
-        {/* Yellow Shorts */}
-        <path d="M 72 135 L 128 135 L 125 156 L 104 156 L 100 148 L 96 156 L 75 156 Z" fill="#facc15" stroke="#ca8a04" strokeWidth="2" />
+          {/* Right Leg */}
+          <rect x="110" y="146" width="14" height="24" rx="6" fill="#fde2c7" stroke="#18181b" strokeWidth="2.5" />
+          <rect x="109" y="160" width="16" height="9" rx="2" fill="#ffffff" stroke="#18181b" strokeWidth="2" />
+          {/* Right Yellow Shoe */}
+          <path d="M 104 172 C 104 166 120 166 132 172 C 134 178 130 185 114 185 C 104 185 104 178 104 172 Z" fill="#facc15" stroke="#18181b" strokeWidth="2.5" />
+          <path d="M 105 181 Q 118 185 131 181" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" />
+        </g>
 
-        {/* Red Shirt Body */}
-        <rect x="70" y="105" width="60" height="34" rx="10" fill="#ef4444" stroke="#b91c1c" strokeWidth="2.5" />
+        {/* Yellow Shorts with leg openings */}
+        <path
+          d="M 66 124 L 134 124 C 136 135 134 152 126 152 L 105 152 L 100 142 L 95 152 L 74 152 C 66 152 64 135 66 124 Z"
+          fill="#facc15"
+          stroke="#18181b"
+          strokeWidth="2.5"
+        />
+        {/* Shorts waistband & center fold */}
+        <line x1="68" y1="128" x2="132" y2="128" stroke="#ca8a04" strokeWidth="1.5" />
+        <line x1="100" y1="128" x2="100" y2="140" stroke="#ca8a04" strokeWidth="1.5" />
+
+        {/* Red T-Shirt Body */}
+        <path
+          d="M 64 94 L 136 94 C 138 106 136 126 132 126 L 68 126 C 64 126 62 106 64 94 Z"
+          fill="#ef4444"
+          stroke="#18181b"
+          strokeWidth="2.5"
+        />
+        {/* Yellow crew neck rim */}
+        <path d="M 88 94 Q 100 100 112 94" fill="none" stroke="#facc15" strokeWidth="3" strokeLinecap="round" />
 
         {/* Arms */}
         {state === 'excited' ? (
-          // Action Kamen Beam Pose (arms forward crossed)
+          // Action Kamen Beam Pose
           <g>
-            <path d="M 72 110 L 50 95 L 75 88" stroke="#fed7aa" strokeWidth="8" strokeLinecap="round" fill="none" />
-            <path d="M 128 110 L 150 95 L 125 88" stroke="#fed7aa" strokeWidth="8" strokeLinecap="round" fill="none" />
-            {/* Action Kamen Lightning */}
-            <path d="M 100 80 L 96 70 L 104 68 L 98 55" stroke="#facc15" strokeWidth="3" fill="none" className="animate-pulse" />
+            <path d="M 66 98 L 46 88 L 74 78" stroke="#18181b" strokeWidth="7" strokeLinecap="round" fill="none" />
+            <path d="M 66 98 L 46 88 L 74 78" stroke="#fde2c7" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+            <path d="M 134 98 L 154 88 L 126 78" stroke="#18181b" strokeWidth="7" strokeLinecap="round" fill="none" />
+            <path d="M 134 98 L 154 88 L 126 78" stroke="#fde2c7" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+            {/* Lightning beam spark */}
+            <path d="M 100 74 L 95 62 L 105 60 L 98 46" stroke="#facc15" strokeWidth="3.5" strokeLinecap="round" fill="none" className="animate-pulse" />
           </g>
         ) : isWiggle ? (
-          // Playful dancing arms
+          // Playful shimmy dancing arms
           <g>
-            <path d="M 72 112 Q 52 100 58 85" stroke="#fed7aa" strokeWidth="8" strokeLinecap="round" fill="none" />
-            <path d="M 128 112 Q 148 100 142 85" stroke="#fed7aa" strokeWidth="8" strokeLinecap="round" fill="none" />
+            <path d="M 64 98 Q 44 90 50 76" stroke="#18181b" strokeWidth="7" strokeLinecap="round" fill="none" />
+            <path d="M 64 98 Q 44 90 50 76" stroke="#fde2c7" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+            <circle cx="50" cy="76" r="4.5" fill="#fde2c7" stroke="#18181b" strokeWidth="1.5" />
+
+            <path d="M 136 98 Q 156 90 150 76" stroke="#18181b" strokeWidth="7" strokeLinecap="round" fill="none" />
+            <path d="M 136 98 Q 156 90 150 76" stroke="#fde2c7" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+            <circle cx="150" cy="76" r="4.5" fill="#fde2c7" stroke="#18181b" strokeWidth="1.5" />
           </g>
         ) : (
+          // Normal hands on sides
           <g>
-            <path d="M 72 112 Q 60 125 64 140" stroke="#fed7aa" strokeWidth="8" strokeLinecap="round" fill="none" />
-            <path d="M 128 112 Q 140 125 136 140" stroke="#fed7aa" strokeWidth="8" strokeLinecap="round" fill="none" />
+            <path d="M 64 98 Q 50 114 54 128" stroke="#18181b" strokeWidth="7" strokeLinecap="round" fill="none" />
+            <path d="M 64 98 Q 50 114 54 128" stroke="#fde2c7" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+            <circle cx="54" cy="128" r="4.5" fill="#fde2c7" stroke="#18181b" strokeWidth="1.5" />
+
+            <path d="M 136 98 Q 150 114 146 128" stroke="#18181b" strokeWidth="7" strokeLinecap="round" fill="none" />
+            <path d="M 136 98 Q 150 114 146 128" stroke="#fde2c7" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+            <circle cx="146" cy="128" r="4.5" fill="#fde2c7" stroke="#18181b" strokeWidth="1.5" />
           </g>
         )}
 
-        {/* Shinchan's iconic potato-shaped head */}
-        <ellipse cx="100" cy="74" rx="46" ry="38" fill="#fed7aa" stroke="#ea580c" strokeWidth="2" />
-        {/* Left chubby cheek bump */}
-        <ellipse cx="60" cy="80" rx="14" ry="16" fill="#fed7aa" stroke="#ea580c" strokeWidth="2" />
-        {/* Fill cheek seam */}
-        <circle cx="68" cy="78" r="12" fill="#fed7aa" />
+        {/* Sleeves overlay */}
+        <path d="M 65 95 L 48 106 L 54 114 L 69 108 Z" fill="#ef4444" stroke="#18181b" strokeWidth="2" />
+        <path d="M 135 95 L 152 106 L 146 114 L 131 108 Z" fill="#ef4444" stroke="#18181b" strokeWidth="2" />
 
-        {/* Black cropped hair */}
-        <path d="M 58 64 Q 100 36 144 60 Q 148 40 134 32 Q 95 24 64 36 Q 52 46 58 64 Z" fill="#0f172a" />
-        <ellipse cx="100" cy="42" rx="36" ry="12" fill="#0f172a" />
+        {/* Authentic Potato Head Silhouette (Single Smooth Bezier Path) */}
+        <path
+          d="M 146 76 C 148 50 134 32 100 32 C 72 32 50 44 42 60 C 28 68 22 84 26 98 C 32 114 52 122 76 122 C 104 122 138 114 144 88 C 146 84 146 80 146 76 Z"
+          fill="#fde2c7"
+          stroke="#18181b"
+          strokeWidth="2.8"
+        />
 
-        {/* Big iconic curved thick eyebrows */}
-        <g fill="#0f172a">
-          {state === 'worried' ? (
+        {/* Right Ear with inner canal helix */}
+        <path d="M 144 70 C 154 70 156 86 144 90" fill="#fde2c7" stroke="#18181b" strokeWidth="2.5" />
+        <path d="M 147 75 Q 151 79 146 84" fill="none" stroke="#ea580c" strokeWidth="1.5" strokeLinecap="round" />
+
+        {/* Black Cropped Haircut (Clean Anime Contour) */}
+        <path
+          d="M 44 58 C 50 42 70 34 100 34 C 130 34 144 48 146 70 C 144 56 130 42 100 42 C 74 42 56 50 48 64 Z"
+          fill="#18181b"
+        />
+        <path
+          d="M 48 58 C 58 40 78 33 102 33 C 132 33 145 46 146 68 L 140 68 C 138 52 126 42 102 42 C 80 42 62 48 54 60 Z"
+          fill="#09090b"
+          stroke="#09090b"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+
+        {/* Iconic Enormous Thick Curved Black Eyebrows */}
+        <g>
+          {state === 'worried' || state === 'sad' ? (
             <>
-              <path d="M 68 56 Q 80 64 92 60 Q 80 58 68 56 Z" />
-              <path d="M 108 60 Q 120 64 132 56 Q 120 58 108 60 Z" />
+              <path d="M 54 64 C 64 68 80 64 90 56 C 86 60 74 66 56 65 Z" fill="#09090b" stroke="#09090b" strokeWidth="2" />
+              <path d="M 104 56 C 114 64 130 68 140 64 C 130 66 118 60 106 56 Z" fill="#09090b" stroke="#09090b" strokeWidth="2" />
             </>
           ) : (
             <>
-              <path d="M 66 52 Q 80 42 94 50 Q 80 46 66 52 Z" />
-              <path d="M 106 50 Q 120 42 134 52 Q 120 46 106 50 Z" />
+              {/* Left Eyebrow */}
+              <path d="M 52 54 C 62 42 78 44 90 54 C 84 57 72 50 56 60 Z" fill="#09090b" stroke="#09090b" strokeWidth="2" strokeLinejoin="round" />
+              {/* Right Eyebrow */}
+              <path d="M 102 52 C 114 42 130 44 138 56 C 132 58 120 50 106 57 Z" fill="#09090b" stroke="#09090b" strokeWidth="2" strokeLinejoin="round" />
             </>
           )}
         </g>
 
-        {/* Eyes */}
+        {/* Big Expressive Anime Eyes */}
         {state === 'sleeping' ? (
-          <g stroke="#0f172a" strokeWidth="3" strokeLinecap="round" fill="none">
-            <path d="M 72 68 Q 80 73 88 68" />
-            <path d="M 112 68 Q 120 73 128 68" />
-          </g>
-        ) : state === 'excited' ? (
-          <g fill="#facc15" stroke="#ca8a04" strokeWidth="1">
-            <circle cx="80" cy="68" r="7" fill="#0f172a" />
-            <circle cx="78" cy="66" r="2.5" fill="#ffffff" />
-            <circle cx="120" cy="68" r="7" fill="#0f172a" />
-            <circle cx="118" cy="66" r="2.5" fill="#ffffff" />
+          <g stroke="#18181b" strokeWidth="3" strokeLinecap="round" fill="none">
+            <path d="M 64 74 Q 74 82 84 74" />
+            <path d="M 108 72 Q 118 80 128 72" />
           </g>
         ) : (
-          <g className="anim-blinking" style={{ transformOrigin: '100px 68px' }}>
-            <ellipse cx="80" cy="68" rx="6" ry="7" fill="#0f172a" />
-            <circle cx="78" cy="66" r="2.5" fill="#ffffff" />
-            <ellipse cx="120" cy="68" rx="6" ry="7" fill="#0f172a" />
-            <circle cx="118" cy="66" r="2.5" fill="#ffffff" />
+          <g className={animationsEnabled ? 'anim-blinking' : ''} style={{ transformOrigin: '100px 74px' }}>
+            {/* Left Eye */}
+            <ellipse cx="72" cy="74" rx="10.5" ry="12.5" fill="#ffffff" stroke="#18181b" strokeWidth="2.2" />
+            <circle cx="74" cy="74" r="7" fill="#09090b" />
+            <circle cx="72" cy="71" r="2.8" fill="#ffffff" />
+            <circle cx="76" cy="77" r="1.2" fill="#ffffff" opacity="0.6" />
+
+            {/* Right Eye */}
+            <ellipse cx="114" cy="72" rx="10.5" ry="12.5" fill="#ffffff" stroke="#18181b" strokeWidth="2.2" />
+            <circle cx="112" cy="72" r="7" fill="#09090b" />
+            <circle cx="110" cy="69" r="2.8" fill="#ffffff" />
+            <circle cx="114" cy="75" r="1.2" fill="#ffffff" opacity="0.6" />
           </g>
         )}
 
-        {/* Rosy Cheeks */}
-        <ellipse cx="64" cy="82" rx="7" ry="4" fill="#fda4af" opacity="0.8" />
-        <ellipse cx="132" cy="80" rx="7" ry="4" fill="#fda4af" opacity="0.8" />
+        {/* Rosy Anime Blush Circles */}
+        <ellipse cx="44" cy="94" rx="9" ry="5.5" fill="#fb7185" opacity="0.65" />
+        <ellipse cx="128" cy="88" rx="8" ry="5" fill="#fb7185" opacity="0.65" />
 
-        {/* Mouth */}
+        {/* Iconic Sideways Bean Mouth */}
         {state === 'talking' ? (
-          <ellipse cx="98" cy="86" rx="6" ry="5" fill="#ef4444" stroke="#7f1d1d" strokeWidth="1.5" className="anim-talking" />
+          <g className={animationsEnabled ? 'anim-talking' : ''}>
+            <ellipse cx="84" cy="94" rx="9" ry="7" fill="#ef4444" stroke="#18181b" strokeWidth="2" />
+            <path d="M 78 96 Q 84 92 90 96" stroke="#f472b6" strokeWidth="3" strokeLinecap="round" fill="none" />
+          </g>
         ) : state === 'happy' || isWiggle ? (
-          <path d="M 90 82 Q 98 94 108 82 Z" fill="#ef4444" stroke="#7f1d1d" strokeWidth="1.5" />
+          <g>
+            <path d="M 72 90 C 68 106 94 108 96 92 Z" fill="#ef4444" stroke="#18181b" strokeWidth="2" />
+            <path d="M 76 98 Q 84 94 92 98 Q 84 105 76 98 Z" fill="#f472b6" />
+          </g>
         ) : (
-          <path d="M 92 84 Q 100 89 106 84" fill="none" stroke="#7f1d1d" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M 74 92 Q 86 100 94 92" fill="none" stroke="#18181b" strokeWidth="2.5" strokeLinecap="round" />
         )}
 
-        {/* Chocobi Snack Box if celebrating */}
+        {/* Chocobi Snack Box (Authentic Green Star Box) */}
         {state === 'celebrating' && (
           <g>
-            <polygon points="142,105 162,100 162,130 142,135" fill="#a855f7" stroke="#7e22ce" strokeWidth="1.5" />
-            <text x="146" y="122" fontSize="9" fill="#ffffff" fontWeight="bold">⭐</text>
+            <polygon points="144,102 166,96 166,132 144,138" fill="#15803d" stroke="#14532d" strokeWidth="1.5" />
+            <polygon points="144,102 152,90 174,84 166,96" fill="#22c55e" stroke="#14532d" strokeWidth="1.5" />
+            <text x="148" y="122" fontSize="11" fill="#facc15" fontWeight="black">★</text>
           </g>
         )}
 
-        {renderAccessory(100, 68, 104)}
+        {renderAccessory(100, 74, 102)}
         {renderStateOverlays()}
       </svg>
     );
   };
 
   // ==========================================
-  // 2. DORAEMON
+  // 2. DORAEMON (Fujiko F. Fujio)
   // ==========================================
   const renderDoraemon = () => {
     return (
       <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-md">
-        {/* Shadow */}
-        <ellipse cx="100" cy="188" rx="46" ry="8" fill="rgba(0,0,0,0.12)" />
+        {/* Ground Ambient Shadow */}
+        <ellipse cx="100" cy="188" rx="46" ry="8" fill="rgba(0,0,0,0.14)" />
 
-        {/* Bamboo-Copter (Take-copter) on top of head */}
+        {/* Bamboo-Copter (Take-copter) */}
         <g>
-          <rect x="98" y="24" width="4" height="14" fill="#ca8a04" />
-          <ellipse cx="100" cy="24" rx="28" ry="4" fill="#facc15" stroke="#a16207" strokeWidth="1.5" className="animate-spin" style={{ transformOrigin: '100px 24px' }} />
+          {/* Suction cup mount */}
+          <ellipse cx="100" cy="20" rx="8" ry="3" fill="#eab308" stroke="#18181b" strokeWidth="1.5" />
+          {/* Shaft */}
+          <rect x="98.5" y="8" width="3" height="13" fill="#facc15" stroke="#18181b" strokeWidth="1" />
+          {/* Rotor Blade */}
+          <ellipse
+            cx="100"
+            cy="8"
+            rx="28"
+            ry="3.5"
+            fill="#fde047"
+            stroke="#18181b"
+            strokeWidth="1.5"
+            className={animationsEnabled ? 'animate-spin' : ''}
+            style={{ transformOrigin: '100px 8px' }}
+          />
         </g>
 
-        {/* Feet (white ovals) */}
-        <ellipse cx="80" cy="178" rx="18" ry="9" fill="#ffffff" stroke="#0284c7" strokeWidth="2" />
-        <ellipse cx="120" cy="178" rx="18" ry="9" fill="#ffffff" stroke="#0284c7" strokeWidth="2" />
+        {/* Large White Oval Feet */}
+        <ellipse cx="78" cy="178" rx="20" ry="11" fill="#ffffff" stroke="#18181b" strokeWidth="2.5" />
+        <ellipse cx="122" cy="178" rx="20" ry="11" fill="#ffffff" stroke="#18181b" strokeWidth="2.5" />
 
-        {/* Blue Body */}
-        <ellipse cx="100" cy="138" rx="48" ry="42" fill="#0284c7" stroke="#0369a1" strokeWidth="2.5" />
+        {/* Plump Blue Body */}
+        <ellipse cx="100" cy="136" rx="48" ry="42" fill="#0284c7" stroke="#18181b" strokeWidth="2.5" />
 
-        {/* White Belly */}
-        <circle cx="100" cy="140" r="32" fill="#ffffff" stroke="#0284c7" strokeWidth="1.5" />
+        {/* Pure White Round Belly Patch */}
+        <circle cx="100" cy="138" r="32" fill="#ffffff" stroke="#18181b" strokeWidth="2" />
 
-        {/* 4D Pocket (Yojigen Pocket) */}
-        <path d="M 80 142 L 120 142 A 20 20 0 0 1 80 142 Z" fill="#ffffff" stroke="#0284c7" strokeWidth="2" />
+        {/* Canonical 4D Pocket (Yojigen Pocket) */}
+        <path d="M 78 138 L 122 138 C 122 158 78 158 78 138 Z" fill="#ffffff" stroke="#18181b" strokeWidth="2.2" />
+        <line x1="78" y1="138" x2="122" y2="138" stroke="#18181b" strokeWidth="2" />
 
-        {/* Hands (round white paws) */}
-        <circle cx="48" cy="136" r="12" fill="#ffffff" stroke="#0284c7" strokeWidth="2" />
-        <circle cx="152" cy="136" r="12" fill="#ffffff" stroke="#0284c7" strokeWidth="2" />
+        {/* White Ball Hands (Cream-Puff Paws) */}
+        <circle cx="46" cy="132" r="14" fill="#ffffff" stroke="#18181b" strokeWidth="2.5" />
+        <circle cx="154" cy="132" r="14" fill="#ffffff" stroke="#18181b" strokeWidth="2.5" />
 
-        {/* Red Collar & Golden Bell */}
-        <rect x="74" y="104" width="52" height="8" rx="4" fill="#ef4444" stroke="#b91c1c" strokeWidth="1.5" />
-        <circle cx="100" cy="114" r="8" fill="#facc15" stroke="#a16207" strokeWidth="1.5" />
-        <circle cx="100" cy="115" r="2.5" fill="#78350f" />
-        <line x1="94" y1="112" x2="106" y2="112" stroke="#78350f" strokeWidth="1" />
+        {/* Red Collar & Golden Jingle Bell */}
+        <rect x="70" y="103" width="60" height="9" rx="4.5" fill="#ef4444" stroke="#18181b" strokeWidth="2" />
+        <circle cx="100" cy="116" r="9" fill="#facc15" stroke="#18181b" strokeWidth="2" />
+        <line x1="93" y1="113" x2="107" y2="113" stroke="#92400e" strokeWidth="1.5" />
+        <circle cx="100" cy="116" r="2" fill="#78350f" />
+        <line x1="100" y1="118" x2="100" y2="123" stroke="#78350f" strokeWidth="1.8" />
 
-        {/* Blue Head */}
-        <circle cx="100" cy="74" r="48" fill="#0284c7" stroke="#0369a1" strokeWidth="2.5" />
+        {/* Big Spherical Blue Head */}
+        <circle cx="100" cy="68" r="50" fill="#0284c7" stroke="#18181b" strokeWidth="2.5" />
 
-        {/* White Face Area */}
-        <ellipse cx="100" cy="80" rx="40" ry="34" fill="#ffffff" stroke="#0284c7" strokeWidth="1.5" />
+        {/* White Face Mask */}
+        <ellipse cx="100" cy="74" rx="42" ry="36" fill="#ffffff" stroke="#18181b" strokeWidth="2" />
 
-        {/* Big Oval Eyes */}
-        <ellipse cx="88" cy="56" rx="10" ry="14" fill="#ffffff" stroke="#0f172a" strokeWidth="2" />
-        <ellipse cx="112" cy="56" rx="10" ry="14" fill="#ffffff" stroke="#0f172a" strokeWidth="2" />
+        {/* Big Touching Oval Eyes */}
+        <ellipse cx="88" cy="48" rx="11" ry="16" fill="#ffffff" stroke="#18181b" strokeWidth="2.2" />
+        <ellipse cx="112" cy="48" rx="11" ry="16" fill="#ffffff" stroke="#18181b" strokeWidth="2.2" />
 
-        {/* Eye Pupils */}
+        {/* Eye Pupils with shine */}
         {state === 'sleeping' ? (
-          <g stroke="#0f172a" strokeWidth="2.5" strokeLinecap="round">
-            <line x1="82" y1="58" x2="94" y2="58" />
-            <line x1="106" y1="58" x2="118" y2="58" />
+          <g stroke="#18181b" strokeWidth="2.5" strokeLinecap="round">
+            <line x1="82" y1="48" x2="94" y2="48" />
+            <line x1="106" y1="48" x2="118" y2="48" />
           </g>
-        ) : state === 'worried' ? (
-          <g>
-            <circle cx="90" cy="58" r="4" fill="#0f172a" />
-            <circle cx="110" cy="58" r="4" fill="#0f172a" />
+        ) : state === 'happy' ? (
+          <g stroke="#18181b" strokeWidth="2.5" strokeLinecap="round" fill="none">
+            <path d="M 81 48 Q 88 42 95 48" />
+            <path d="M 105 48 Q 112 42 119 48" />
           </g>
         ) : (
-          <g className="anim-blinking" style={{ transformOrigin: '100px 56px' }}>
-            <circle cx="90" cy="56" r="3.5" fill="#0f172a" />
-            <circle cx="110" cy="56" r="3.5" fill="#0f172a" />
+          <g className={animationsEnabled ? 'anim-blinking' : ''} style={{ transformOrigin: '100px 48px' }}>
+            <circle cx="92" cy="50" r="4.5" fill="#0f172a" />
+            <circle cx="90" cy="48" r="1.8" fill="#ffffff" />
+            <circle cx="108" cy="50" r="4.5" fill="#0f172a" />
+            <circle cx="106" cy="48" r="1.8" fill="#ffffff" />
           </g>
         )}
 
-        {/* Red Nose */}
-        <circle cx="100" cy="68" r="6.5" fill="#ef4444" stroke="#991b1b" strokeWidth="1" />
-        <circle cx="98" cy="66" r="2" fill="#ffffff" />
-        {/* Nose center vertical line */}
-        <line x1="100" y1="74" x2="100" y2="92" stroke="#0f172a" strokeWidth="2" />
+        {/* Shiny Red Nose */}
+        <circle cx="100" cy="62" r="7.5" fill="#ef4444" stroke="#18181b" strokeWidth="1.8" />
+        <circle cx="97.5" cy="59.5" r="2.2" fill="#ffffff" />
 
-        {/* Whiskers (3 on each side) */}
-        <g stroke="#0f172a" strokeWidth="1.8" strokeLinecap="round">
-          <line x1="66" y1="76" x2="90" y2="79" />
-          <line x1="64" y1="84" x2="90" y2="84" />
-          <line x1="66" y1="92" x2="90" y2="89" />
+        {/* Vertical Philtrum Line */}
+        <line x1="100" y1="69.5" x2="100" y2="86" stroke="#18181b" strokeWidth="2.2" />
 
-          <line x1="110" y1="79" x2="134" y2="76" />
-          <line x1="110" y1="84" x2="136" y2="84" />
-          <line x1="110" y1="89" x2="134" y2="92" />
+        {/* 6 Whiskers (3 on each side) */}
+        <g stroke="#18181b" strokeWidth="2" strokeLinecap="round">
+          <line x1="62" y1="68" x2="88" y2="72" />
+          <line x1="60" y1="78" x2="88" y2="78" />
+          <line x1="62" y1="88" x2="88" y2="84" />
+
+          <line x1="112" y1="72" x2="138" y2="68" />
+          <line x1="112" y1="78" x2="140" y2="78" />
+          <line x1="112" y1="84" x2="138" y2="88" />
         </g>
 
-        {/* Mouth */}
+        {/* Giant Iconic Doraemon Mouth */}
         {state === 'talking' ? (
-          <ellipse cx="100" cy="94" rx="12" ry="8" fill="#ef4444" stroke="#0f172a" strokeWidth="2" className="anim-talking" />
+          <g className={animationsEnabled ? 'anim-talking' : ''}>
+            <ellipse cx="100" cy="94" rx="14" ry="10" fill="#dc2626" stroke="#18181b" strokeWidth="2.2" />
+            <path d="M 92 98 Q 100 92 108 98" fill="none" stroke="#fb7185" strokeWidth="4" strokeLinecap="round" />
+          </g>
         ) : (
-          <path d="M 80 92 Q 100 110 120 92" fill="none" stroke="#0f172a" strokeWidth="2.5" strokeLinecap="round" />
+          <g>
+            <path d="M 72 86 Q 100 114 128 86" fill="#dc2626" stroke="#18181b" strokeWidth="2.5" strokeLinecap="round" />
+            <path d="M 86 98 Q 93 92 100 96 Q 107 92 114 98 Q 100 109 86 98 Z" fill="#fb7185" />
+          </g>
         )}
 
         {/* Dorayaki Pancake in hand if happy */}
         {state === 'happy' && (
           <g>
-            <ellipse cx="154" cy="130" rx="12" ry="7" fill="#b45309" stroke="#78350f" strokeWidth="1.5" />
-            <line x1="144" y1="130" x2="164" y2="130" stroke="#451a03" strokeWidth="2" />
+            <ellipse cx="156" cy="126" rx="13" ry="8" fill="#b45309" stroke="#78350f" strokeWidth="1.5" />
+            <line x1="145" y1="126" x2="167" y2="126" stroke="#451a03" strokeWidth="2.5" />
           </g>
         )}
 
-        {renderAccessory(100, 68, 106)}
+        {renderAccessory(100, 68, 104)}
         {renderStateOverlays()}
       </svg>
     );
@@ -428,276 +518,358 @@ export const AnimatedCharacter: React.FC<AnimatedCharacterProps> = ({
   const renderPikachu = () => {
     return (
       <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-md">
-        {/* Shadow */}
-        <ellipse cx="100" cy="188" rx="44" ry="8" fill="rgba(0,0,0,0.12)" />
+        {/* Ground Ambient Shadow */}
+        <ellipse cx="100" cy="188" rx="46" ry="8" fill="rgba(0,0,0,0.14)" />
 
-        {/* Lightning Tail */}
+        {/* Lightning Bolt Tail */}
+        <g>
+          <path
+            d="M 134 152 L 158 136 L 148 118 L 180 92 L 168 86 L 144 108 L 152 122 L 132 136 Z"
+            fill="#facc15"
+            stroke="#18181b"
+            strokeWidth="2.5"
+            strokeLinejoin="miter"
+          />
+          {/* Brown Base */}
+          <path d="M 132 136 L 140 144 L 134 152 L 126 144 Z" fill="#78350f" stroke="#18181b" strokeWidth="1.5" />
+        </g>
+
+        {/* Flat Yellow Feet with 3 toe notches */}
+        <g>
+          <ellipse cx="78" cy="180" rx="16" ry="8" fill="#facc15" stroke="#18181b" strokeWidth="2.2" />
+          <line x1="74" y1="178" x2="74" y2="186" stroke="#ca8a04" strokeWidth="1.5" />
+          <line x1="80" y1="178" x2="80" y2="186" stroke="#ca8a04" strokeWidth="1.5" />
+
+          <ellipse cx="122" cy="180" rx="16" ry="8" fill="#facc15" stroke="#18181b" strokeWidth="2.2" />
+          <line x1="118" y1="178" x2="118" y2="186" stroke="#ca8a04" strokeWidth="1.5" />
+          <line x1="124" y1="178" x2="124" y2="186" stroke="#ca8a04" strokeWidth="1.5" />
+        </g>
+
+        {/* Plump Pear-shaped Body */}
         <path
-          d="M 135 150 L 160 135 L 148 115 L 180 90 L 168 85 L 145 105 L 152 120 Z"
+          d="M 68 118 C 56 128 54 168 74 176 C 90 180 110 180 126 176 C 146 168 144 128 132 118 Z"
           fill="#facc15"
-          stroke="#ca8a04"
-          strokeWidth="2"
+          stroke="#18181b"
+          strokeWidth="2.5"
         />
-        {/* Brown tail base */}
-        <path d="M 135 150 L 145 142 L 140 135 L 132 142 Z" fill="#92400e" />
 
-        {/* Ears */}
+        {/* Chocolate Brown Back Stripes */}
+        <path d="M 62 136 Q 74 132 86 136" stroke="#78350f" strokeWidth="4" strokeLinecap="round" fill="none" />
+        <path d="M 60 148 Q 74 144 88 148" stroke="#78350f" strokeWidth="4" strokeLinecap="round" fill="none" />
+
+        {/* Short Forearms / Paws resting on belly */}
+        <path d="M 78 126 C 74 136 84 146 92 142" stroke="#18181b" strokeWidth="2.2" fill="#facc15" strokeLinecap="round" />
+        <path d="M 122 126 C 126 136 116 146 108 142" stroke="#18181b" strokeWidth="2.2" fill="#facc15" strokeLinecap="round" />
+
+        {/* Long Pointed Ears with Diagonally Cut Jet-Black Tips */}
         {/* Left Ear */}
-        <path d="M 68 56 Q 40 24 35 6 Q 58 14 78 48 Z" fill="#facc15" stroke="#ca8a04" strokeWidth="1.5" />
-        <path d="M 35 6 Q 44 4 48 10 L 40 18 Q 36 12 35 6 Z" fill="#0f172a" />
+        <path d="M 68 54 C 44 26 36 6 34 2 C 54 12 74 38 80 50 Z" fill="#facc15" stroke="#18181b" strokeWidth="2.2" />
+        <path d="M 34 2 C 40 5 44 9 40 14 C 36 10 34 5 34 2 Z" fill="#18181b" />
         {/* Right Ear */}
-        <path d="M 132 56 Q 160 24 165 6 Q 142 14 122 48 Z" fill="#facc15" stroke="#ca8a04" strokeWidth="1.5" />
-        <path d="M 165 6 Q 156 4 152 10 L 160 18 Q 164 12 165 6 Z" fill="#0f172a" />
+        <path d="M 132 54 C 156 26 164 6 166 2 C 146 12 126 38 120 50 Z" fill="#facc15" stroke="#18181b" strokeWidth="2.2" />
+        <path d="M 166 2 C 160 5 156 9 160 14 C 164 10 166 5 166 2 Z" fill="#18181b" />
 
-        {/* Body */}
-        <ellipse cx="100" cy="142" rx="46" ry="40" fill="#facc15" stroke="#ca8a04" strokeWidth="2.5" />
+        {/* Chubby Head with Wide Cheeks */}
+        <path
+          d="M 62 76 C 54 94 62 116 78 118 C 92 120 108 120 122 118 C 138 116 146 94 138 76 C 130 56 70 56 62 76 Z"
+          fill="#facc15"
+          stroke="#18181b"
+          strokeWidth="2.5"
+        />
 
-        {/* Brown stripes on back (subtle side view) */}
-        <path d="M 60 135 Q 70 132 80 135" stroke="#92400e" strokeWidth="3" strokeLinecap="round" fill="none" />
-        <path d="M 58 145 Q 70 142 80 145" stroke="#92400e" strokeWidth="3" strokeLinecap="round" fill="none" />
+        {/* Circular Bright Red Electric Cheek Pouches */}
+        <circle cx="68" cy="96" r="11" fill="#ef4444" stroke="#18181b" strokeWidth="1.5" />
+        <circle cx="132" cy="96" r="11" fill="#ef4444" stroke="#18181b" strokeWidth="1.5" />
 
-        {/* Feet */}
-        <ellipse cx="80" cy="180" rx="14" ry="7" fill="#facc15" stroke="#ca8a04" strokeWidth="2" />
-        <ellipse cx="120" cy="180" rx="14" ry="7" fill="#facc15" stroke="#ca8a04" strokeWidth="2" />
-
-        {/* Arms */}
-        <ellipse cx="80" cy="140" rx="8" ry="14" fill="#facc15" stroke="#ca8a04" strokeWidth="2" transform="rotate(15 80 140)" />
-        <ellipse cx="120" cy="140" rx="8" ry="14" fill="#facc15" stroke="#ca8a04" strokeWidth="2" transform="rotate(-15 120 140)" />
-
-        {/* Head */}
-        <circle cx="100" cy="84" r="44" fill="#facc15" stroke="#ca8a04" strokeWidth="2.5" />
-
-        {/* Red Cheek Pouches (Iconic!) */}
-        <circle cx="66" cy="96" r="10" fill="#ef4444" stroke="#b91c1c" strokeWidth="1" />
-        <circle cx="134" cy="96" r="10" fill="#ef4444" stroke="#b91c1c" strokeWidth="1" />
-
-        {/* Electric Sparks from cheeks if excited */}
+        {/* Electric Sparks when excited */}
         {state === 'excited' && (
-          <g stroke="#eab308" strokeWidth="2" fill="none" className="animate-ping">
-            <path d="M 54 90 L 46 94 L 52 98" />
-            <path d="M 146 90 L 154 94 L 148 98" />
+          <g stroke="#eab308" strokeWidth="2.5" fill="none" className="animate-ping">
+            <path d="M 52 90 L 44 94 L 50 98" />
+            <path d="M 148 90 L 156 94 L 150 98" />
           </g>
         )}
 
-        {/* Eyes */}
+        {/* Large Glossy Anime Eyes */}
         {state === 'sleeping' ? (
-          <g stroke="#1e293b" strokeWidth="3" strokeLinecap="round" fill="none">
-            <path d="M 76 80 Q 82 85 88 80" />
-            <path d="M 112 80 Q 118 85 124 80" />
+          <g stroke="#18181b" strokeWidth="3" strokeLinecap="round" fill="none">
+            <path d="M 74 78 Q 82 84 90 78" />
+            <path d="M 110 78 Q 118 84 126 78" />
           </g>
         ) : (
-          <g className="anim-blinking" style={{ transformOrigin: '100px 80px' }}>
-            <circle cx="82" cy="80" r="7" fill="#1e293b" />
-            <circle cx="80" cy="78" r="2.8" fill="#ffffff" />
-            <circle cx="118" cy="80" r="7" fill="#1e293b" />
-            <circle cx="116" cy="78" r="2.8" fill="#ffffff" />
+          <g className={animationsEnabled ? 'anim-blinking' : ''} style={{ transformOrigin: '100px 78px' }}>
+            {/* Left Eye */}
+            <circle cx="82" cy="78" r="8" fill="#1e1b4b" stroke="#18181b" strokeWidth="1.5" />
+            <circle cx="80" cy="76" r="3.2" fill="#ffffff" />
+            <ellipse cx="84" cy="82" rx="2.5" ry="1.2" fill="#ca8a04" opacity="0.6" />
+
+            {/* Right Eye */}
+            <circle cx="118" cy="78" r="8" fill="#1e1b4b" stroke="#18181b" strokeWidth="1.5" />
+            <circle cx="116" cy="76" r="3.2" fill="#ffffff" />
+            <ellipse cx="120" cy="82" rx="2.5" ry="1.2" fill="#ca8a04" opacity="0.6" />
           </g>
         )}
 
-        {/* Tiny Nose */}
-        <polygon points="100,88 98,85 102,85" fill="#1e293b" />
+        {/* Tiny Inverted Black Triangle Nose */}
+        <polygon points="100,86 98,83 102,83" fill="#18181b" />
 
-        {/* Cat-like Mouth */}
+        {/* Adorable "ω" Cat Smile */}
         {state === 'talking' ? (
-          <ellipse cx="100" cy="98" rx="6" ry="5" fill="#ef4444" stroke="#7f1d1d" strokeWidth="1.5" className="anim-talking" />
+          <g className={animationsEnabled ? 'anim-talking' : ''}>
+            <ellipse cx="100" cy="95" rx="7" ry="6" fill="#e11d48" stroke="#18181b" strokeWidth="1.8" />
+            <path d="M 96 98 Q 100 94 104 98" fill="none" stroke="#fda4af" strokeWidth="2.5" strokeLinecap="round" />
+          </g>
+        ) : state === 'happy' ? (
+          <g>
+            <path d="M 92 90 Q 96 93 100 90 Q 104 93 108 90 C 108 102 92 102 92 90 Z" fill="#e11d48" stroke="#18181b" strokeWidth="1.8" />
+            <path d="M 94 96 Q 100 92 106 96 Q 100 101 94 96 Z" fill="#fda4af" />
+          </g>
         ) : (
-          <path d="M 94 94 Q 97 97 100 94 Q 103 97 106 94" fill="none" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" />
+          <path d="M 92 90 Q 96 94 100 90 Q 104 94 108 90" fill="none" stroke="#18181b" strokeWidth="2.2" strokeLinecap="round" />
         )}
 
-        {renderAccessory(100, 80, 118)}
+        {renderAccessory(100, 78, 118)}
         {renderStateOverlays()}
       </svg>
     );
   };
 
   // ==========================================
-  // 4. LUFFY (One Piece)
+  // 4. LUFFY (Monkey D. Luffy - One Piece)
   // ==========================================
   const renderLuffy = () => {
     return (
       <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-md">
-        {/* Shadow */}
-        <ellipse cx="100" cy="188" rx="44" ry="8" fill="rgba(0,0,0,0.12)" />
+        {/* Ground Ambient Shadow */}
+        <ellipse cx="100" cy="188" rx="46" ry="8" fill="rgba(0,0,0,0.14)" />
 
-        {/* Blue Shorts & White Fur Cuff */}
-        <path d="M 74 140 L 126 140 L 122 160 L 104 160 L 100 152 L 96 160 L 78 160 Z" fill="#2563eb" stroke="#1d4ed8" strokeWidth="2" />
-        <rect x="76" y="157" width="18" height="4" rx="2" fill="#ffffff" />
-        <rect x="106" y="157" width="18" height="4" rx="2" fill="#ffffff" />
+        {/* Denim Blue Shorts with Fluffy White Cloud Cuffs */}
+        <path
+          d="M 72 136 L 128 136 C 130 148 128 160 124 160 L 105 160 L 100 152 L 95 160 L 76 160 C 72 160 70 148 72 136 Z"
+          fill="#2563eb"
+          stroke="#18181b"
+          strokeWidth="2.5"
+        />
+        <ellipse cx="85" cy="160" rx="12" ry="4" fill="#ffffff" stroke="#18181b" strokeWidth="1.8" />
+        <ellipse cx="115" cy="160" rx="12" ry="4" fill="#ffffff" stroke="#18181b" strokeWidth="1.8" />
 
-        {/* Legs & Sandals */}
-        <rect x="80" y="160" width="10" height="18" fill="#fed7aa" />
-        <rect x="110" y="160" width="10" height="18" fill="#fed7aa" />
-        <ellipse cx="85" cy="178" rx="10" ry="4" fill="#78350f" />
-        <ellipse cx="115" cy="178" rx="10" ry="4" fill="#78350f" />
+        {/* Legs & Straw Sandals (Zōri) */}
+        <rect x="79" y="162" width="12" height="18" fill="#fed7aa" stroke="#18181b" strokeWidth="2" />
+        <rect x="109" y="162" width="12" height="18" fill="#fed7aa" stroke="#18181b" strokeWidth="2" />
+        <ellipse cx="85" cy="180" rx="11" ry="4.5" fill="#ca8a04" stroke="#18181b" strokeWidth="1.8" />
+        <ellipse cx="115" cy="180" rx="11" ry="4.5" fill="#ca8a04" stroke="#18181b" strokeWidth="1.8" />
+        <path d="M 80 180 Q 85 177 90 180" stroke="#18181b" strokeWidth="2" fill="none" />
+        <path d="M 110 180 Q 115 177 120 180" stroke="#18181b" strokeWidth="2" fill="none" />
 
-        {/* Open Red Vest & Bare Chest with X-scar */}
-        <rect x="72" y="104" width="56" height="38" rx="6" fill="#fed7aa" />
-        {/* Red Vest Sides */}
-        <path d="M 70 104 L 84 104 L 80 142 L 68 142 Z" fill="#dc2626" stroke="#991b1b" strokeWidth="1.5" />
-        <path d="M 130 104 L 116 104 L 120 142 L 132 142 Z" fill="#dc2626" stroke="#991b1b" strokeWidth="1.5" />
-        {/* Yellow Sash Belt */}
-        <rect x="74" y="136" width="52" height="6" fill="#facc15" stroke="#ca8a04" strokeWidth="1" />
+        {/* Bare Toned Anime Chest & Torso */}
+        <rect x="74" y="98" width="52" height="40" fill="#fed7aa" />
+        {/* Collarbones */}
+        <path d="M 82 106 Q 100 110 118 106" fill="none" stroke="#ea580c" strokeWidth="1.5" strokeLinecap="round" />
+
+        {/* Open Red Vest Flaps */}
+        <path d="M 70 98 L 86 98 L 80 138 L 66 138 Z" fill="#ef4444" stroke="#18181b" strokeWidth="2.2" />
+        <path d="M 130 98 L 114 98 L 120 138 L 134 138 Z" fill="#ef4444" stroke="#18181b" strokeWidth="2.2" />
+
+        {/* Bright Golden Yellow Sash Belt */}
+        <path d="M 70 134 L 130 134 L 128 142 L 72 142 Z" fill="#facc15" stroke="#18181b" strokeWidth="2" />
+        {/* Hanging Knot */}
+        <path d="M 124 140 L 132 154 L 126 156 L 120 142 Z" fill="#facc15" stroke="#18181b" strokeWidth="1.5" />
 
         {/* Arms */}
-        <path d="M 70 108 Q 56 122 62 138" stroke="#fed7aa" strokeWidth="8" strokeLinecap="round" fill="none" />
-        <path d="M 130 108 Q 144 122 138 138" stroke="#fed7aa" strokeWidth="8" strokeLinecap="round" fill="none" />
+        <path d="M 68 102 Q 54 118 58 134" stroke="#18181b" strokeWidth="7" strokeLinecap="round" fill="none" />
+        <path d="M 68 102 Q 54 118 58 134" stroke="#fed7aa" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+        <path d="M 132 102 Q 146 118 142 134" stroke="#18181b" strokeWidth="7" strokeLinecap="round" fill="none" />
+        <path d="M 132 102 Q 146 118 142 134" stroke="#fed7aa" strokeWidth="4.5" strokeLinecap="round" fill="none" />
 
-        {/* Giant Meat on a Bone if happy */}
+        {/* Manga Meat on Bone (Ano Niku) */}
         {state === 'happy' && (
           <g>
-            <rect x="135" y="125" width="28" height="18" rx="9" fill="#991b1b" stroke="#7f1d1d" strokeWidth="1.5" />
-            {/* Bone ends */}
-            <circle cx="133" cy="130" r="4" fill="#ffffff" stroke="#e2e8f0" strokeWidth="1" />
-            <circle cx="133" cy="138" r="4" fill="#ffffff" stroke="#e2e8f0" strokeWidth="1" />
-            <circle cx="165" cy="130" r="4" fill="#ffffff" stroke="#e2e8f0" strokeWidth="1" />
-            <circle cx="165" cy="138" r="4" fill="#ffffff" stroke="#e2e8f0" strokeWidth="1" />
+            <rect x="136" y="122" width="28" height="18" rx="9" fill="#991b1b" stroke="#7f1d1d" strokeWidth="1.5" />
+            <circle cx="134" cy="127" r="4" fill="#ffffff" stroke="#cbd5e1" strokeWidth="1" />
+            <circle cx="134" cy="135" r="4" fill="#ffffff" stroke="#cbd5e1" strokeWidth="1" />
+            <circle cx="166" cy="127" r="4" fill="#ffffff" stroke="#cbd5e1" strokeWidth="1" />
+            <circle cx="166" cy="135" r="4" fill="#ffffff" stroke="#cbd5e1" strokeWidth="1" />
           </g>
         )}
 
-        {/* Head */}
-        <circle cx="100" cy="74" r="38" fill="#fed7aa" stroke="#ea580c" strokeWidth="2" />
+        {/* Anime Head Contour */}
+        <path d="M 74 68 C 72 90 84 102 100 102 C 116 102 128 90 126 68 Z" fill="#fed7aa" stroke="#18181b" strokeWidth="2.5" />
+        <circle cx="72" cy="76" r="6" fill="#fed7aa" stroke="#18181b" strokeWidth="2" />
+        <circle cx="128" cy="76" r="6" fill="#fed7aa" stroke="#18181b" strokeWidth="2" />
 
-        {/* Black Spiky Hair */}
-        <path d="M 64 68 Q 60 48 76 42 Q 95 38 108 42 Q 128 44 136 62 Q 134 50 120 40 Q 98 32 74 42 Z" fill="#0f172a" />
+        {/* Spiky Jet-Black Anime Bangs */}
+        <path
+          d="M 68 70 L 64 56 L 74 60 L 80 48 L 90 58 L 100 46 L 110 58 L 120 48 L 126 60 L 136 56 L 132 70 Z"
+          fill="#09090b"
+          stroke="#09090b"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
 
-        {/* Iconic Straw Hat (Mugiwara) */}
-        {/* Hat Crown */}
-        <ellipse cx="100" cy="44" rx="30" ry="18" fill="#facc15" stroke="#ca8a04" strokeWidth="2" />
+        {/* Authentic Mugiwara Straw Hat */}
+        {/* Straw Crown Dome */}
+        <ellipse cx="100" cy="42" rx="30" ry="20" fill="#f59e0b" stroke="#18181b" strokeWidth="2.5" />
         {/* Red Ribbon Band */}
-        <path d="M 72 48 Q 100 52 128 48 L 128 54 Q 100 58 72 54 Z" fill="#ef4444" />
-        {/* Hat Wide Brim */}
-        <ellipse cx="100" cy="54" rx="52" ry="12" fill="#facc15" stroke="#ca8a04" strokeWidth="2" />
+        <path d="M 76 46 Q 100 50 124 46 L 124 53 Q 100 57 76 53 Z" fill="#ef4444" stroke="#18181b" strokeWidth="1.5" />
+        {/* Wide Curved Straw Brim */}
+        <ellipse cx="100" cy="54" rx="54" ry="14" fill="#f59e0b" stroke="#18181b" strokeWidth="2.5" />
+        <ellipse cx="100" cy="54" rx="46" ry="11" fill="none" stroke="#d97706" strokeWidth="1.2" strokeDasharray="3 3" />
 
         {/* Eyes */}
         {state === 'sleeping' ? (
-          <g stroke="#0f172a" strokeWidth="2.5" strokeLinecap="round">
-            <line x1="84" y1="74" x2="94" y2="74" />
-            <line x1="106" y1="74" x2="116" y2="74" />
+          <g stroke="#18181b" strokeWidth="2.5" strokeLinecap="round">
+            <line x1="82" y1="74" x2="92" y2="74" />
+            <line x1="108" y1="74" x2="118" y2="74" />
           </g>
         ) : (
-          <g className="anim-blinking" style={{ transformOrigin: '100px 74px' }}>
-            <circle cx="88" cy="74" r="5" fill="#0f172a" />
-            <circle cx="86" cy="72" r="1.8" fill="#ffffff" />
-            <circle cx="112" cy="74" r="5" fill="#0f172a" />
-            <circle cx="110" cy="72" r="1.8" fill="#ffffff" />
+          <g className={animationsEnabled ? 'anim-blinking' : ''} style={{ transformOrigin: '100px 74px' }}>
+            <circle cx="86" cy="74" r="6" fill="#ffffff" stroke="#18181b" strokeWidth="2" />
+            <circle cx="87" cy="74" r="3.5" fill="#09090b" />
+            <circle cx="85" cy="72" r="1.5" fill="#ffffff" />
+
+            <circle cx="114" cy="74" r="6" fill="#ffffff" stroke="#18181b" strokeWidth="2" />
+            <circle cx="113" cy="74" r="3.5" fill="#09090b" />
+            <circle cx="111" cy="72" r="1.5" fill="#ffffff" />
           </g>
         )}
 
-        {/* Iconic Left Eye Scar (curved stitch) */}
-        <g stroke="#7c2d12" strokeWidth="1.5" strokeLinecap="round">
-          <path d="M 84 82 Q 88 85 92 83" fill="none" />
-          <line x1="86" y1="81" x2="86" y2="85" />
-          <line x1="90" y1="81" x2="90" y2="85" />
+        {/* Iconic Childhood Left Eye Scar (Two-Stitch Arc) */}
+        <g stroke="#7c2d12" strokeWidth="1.8" strokeLinecap="round">
+          <path d="M 82 82 Q 86 85 90 83" fill="none" />
+          <line x1="84" y1="81" x2="84" y2="85" />
+          <line x1="88" y1="81" x2="88" y2="85" />
         </g>
 
-        {/* Big Signature Toothy D-Grin */}
+        {/* Giant Signature Toothy D-Grin */}
         {state === 'talking' ? (
-          <ellipse cx="100" cy="88" rx="8" ry="6" fill="#ef4444" stroke="#0f172a" strokeWidth="1.5" className="anim-talking" />
+          <ellipse cx="100" cy="88" rx="9" ry="6" fill="#ef4444" stroke="#18181b" strokeWidth="1.8" className={animationsEnabled ? 'anim-talking' : ''} />
         ) : (
           <g>
-            <path d="M 82 86 Q 100 102 118 86 Z" fill="#ffffff" stroke="#0f172a" strokeWidth="2" />
-            <line x1="82" y1="86" x2="118" y2="86" stroke="#0f172a" strokeWidth="1.5" />
-            <line x1="94" y1="86" x2="94" y2="92" stroke="#0f172a" strokeWidth="1" />
-            <line x1="100" y1="86" x2="100" y2="94" stroke="#0f172a" strokeWidth="1" />
-            <line x1="106" y1="86" x2="106" y2="92" stroke="#0f172a" strokeWidth="1" />
+            <path d="M 80 86 Q 100 104 120 86 Z" fill="#ffffff" stroke="#18181b" strokeWidth="2.2" />
+            <line x1="80" y1="86" x2="120" y2="86" stroke="#18181b" strokeWidth="1.8" />
+            <line x1="92" y1="86" x2="92" y2="94" stroke="#18181b" strokeWidth="1.2" />
+            <line x1="100" y1="86" x2="100" y2="96" stroke="#18181b" strokeWidth="1.2" />
+            <line x1="108" y1="86" x2="108" y2="94" stroke="#18181b" strokeWidth="1.2" />
           </g>
         )}
 
-        {renderAccessory(100, 74, 104)}
+        {renderAccessory(100, 74, 102)}
         {renderStateOverlays()}
       </svg>
     );
   };
 
   // ==========================================
-  // 5. NINJA HATTORI (Kanzo Hattori)
+  // 5. NINJA HATTORI (Kanzo Hattori - Fujiko Fujio A)
   // ==========================================
   const renderHattori = () => {
     return (
       <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-md">
-        {/* Shadow */}
-        <ellipse cx="100" cy="188" rx="44" ry="8" fill="rgba(0,0,0,0.12)" />
+        {/* Ground Ambient Shadow */}
+        <ellipse cx="100" cy="188" rx="46" ry="8" fill="rgba(0,0,0,0.14)" />
 
-        {/* Ninja Sword on back */}
-        <line x1="58" y1="65" x2="148" y2="155" stroke="#475569" strokeWidth="4" strokeLinecap="round" />
-        <rect x="52" y="60" width="10" height="8" rx="2" fill="#facc15" transform="rotate(-45 52 60)" />
+        {/* Ninja Katana (Sword strapped across back) */}
+        <line x1="54" y1="58" x2="152" y2="156" stroke="#334155" strokeWidth="5" strokeLinecap="round" />
+        {/* Gold Square Handguard (Tsuba) */}
+        <rect x="50" y="54" width="11" height="11" rx="1.5" fill="#facc15" stroke="#18181b" strokeWidth="1.5" transform="rotate(-45 50 54)" />
+        {/* Wrapped Hilt */}
+        <line x1="40" y1="44" x2="52" y2="56" stroke="#18181b" strokeWidth="5" strokeLinecap="round" />
 
-        {/* Blue Ninja Pants & Gaiters */}
-        <path d="M 76 142 L 124 142 L 120 165 L 104 165 L 100 156 L 96 165 L 80 165 Z" fill="#1d4ed8" stroke="#1e40af" strokeWidth="2" />
-        <rect x="80" y="165" width="12" height="12" fill="#ffffff" stroke="#cbd5e1" strokeWidth="1.5" rx="2" />
-        <rect x="108" y="165" width="12" height="12" fill="#ffffff" stroke="#cbd5e1" strokeWidth="1.5" rx="2" />
-        {/* Straw Ninja Sandals */}
-        <ellipse cx="86" cy="178" rx="9" ry="4" fill="#a16207" />
-        <ellipse cx="114" cy="178" rx="9" ry="4" fill="#a16207" />
+        {/* Blue Ninja Pants with White Gaiters */}
+        <path
+          d="M 76 140 L 124 140 C 126 154 122 165 118 165 L 105 165 L 100 156 L 95 165 L 82 165 C 78 165 74 154 76 140 Z"
+          fill="#1e40af"
+          stroke="#18181b"
+          strokeWidth="2.5"
+        />
+        <rect x="80" y="165" width="14" height="12" rx="3" fill="#ffffff" stroke="#18181b" strokeWidth="2" />
+        <rect x="106" y="165" width="14" height="12" rx="3" fill="#ffffff" stroke="#18181b" strokeWidth="2" />
+        <ellipse cx="87" cy="179" rx="10" ry="4.5" fill="#ca8a04" stroke="#18181b" strokeWidth="1.8" />
+        <ellipse cx="113" cy="179" rx="10" ry="4.5" fill="#ca8a04" stroke="#18181b" strokeWidth="1.8" />
 
-        {/* Blue Robe Body */}
-        <rect x="70" y="106" width="60" height="38" rx="10" fill="#1d4ed8" stroke="#1e40af" strokeWidth="2.5" />
-        {/* Red Belt */}
-        <rect x="72" y="136" width="56" height="6" fill="#ef4444" />
+        {/* Blue Ninja Kimono Tunic */}
+        <path
+          d="M 68 104 L 132 104 C 136 118 134 140 128 140 L 72 140 C 66 140 64 118 68 104 Z"
+          fill="#1e40af"
+          stroke="#18181b"
+          strokeWidth="2.5"
+        />
+        {/* White V-Neck undershirt */}
+        <polygon points="100,118 90,104 110,104" fill="#ffffff" stroke="#18181b" strokeWidth="1.5" />
+        {/* Red Obi Sash */}
+        <rect x="70" y="132" width="60" height="8" rx="2" fill="#ef4444" stroke="#18181b" strokeWidth="1.8" />
 
-        {/* Hands in Ninja Seal (Ninpo) or Arms */}
+        {/* Hands in Secret Ninja Mudra ("Nin-nin!" Hand Seal) */}
         {state === 'excited' ? (
-          // Shuriken throw pose
           <g>
-            <path d="M 72 114 L 50 100" stroke="#1d4ed8" strokeWidth="8" strokeLinecap="round" />
-            <path d="M 128 114 L 155 95" stroke="#1d4ed8" strokeWidth="8" strokeLinecap="round" />
-            {/* Spinning Ninja Shuriken */}
-            <polygon points="160,95 168,98 165,106 157,103" fill="#475569" className="animate-spin" style={{ transformOrigin: '160px 100px' }} />
+            <path d="M 68 112 L 48 98" stroke="#18181b" strokeWidth="7" strokeLinecap="round" />
+            <path d="M 68 112 L 48 98" stroke="#1e40af" strokeWidth="4.5" strokeLinecap="round" />
+            <path d="M 132 112 L 156 94" stroke="#18181b" strokeWidth="7" strokeLinecap="round" />
+            <path d="M 132 112 L 156 94" stroke="#1e40af" strokeWidth="4.5" strokeLinecap="round" />
+            {/* Spinning Shuriken */}
+            <polygon points="162,94 170,97 167,105 159,102" fill="#334155" className={animationsEnabled ? 'animate-spin' : ''} style={{ transformOrigin: '162px 99px' }} />
           </g>
         ) : (
           <g>
-            {/* Hands joined together in classic Ninpo hand sign */}
-            <path d="M 72 115 Q 86 128 96 125" stroke="#1d4ed8" strokeWidth="8" strokeLinecap="round" fill="none" />
-            <path d="M 128 115 Q 114 128 104 125" stroke="#1d4ed8" strokeWidth="8" strokeLinecap="round" fill="none" />
-            <circle cx="100" cy="125" r="7" fill="#fed7aa" stroke="#ea580c" strokeWidth="1.5" />
+            <path d="M 68 112 Q 84 126 96 122" stroke="#18181b" strokeWidth="7" strokeLinecap="round" fill="none" />
+            <path d="M 68 112 Q 84 126 96 122" stroke="#1e40af" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+            <path d="M 132 112 Q 116 126 104 122" stroke="#18181b" strokeWidth="7" strokeLinecap="round" fill="none" />
+            <path d="M 132 112 Q 116 126 104 122" stroke="#1e40af" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+            <rect x="94" y="116" width="12" height="14" rx="4" fill="#fed7aa" stroke="#18181b" strokeWidth="1.8" />
+            <rect x="92" y="126" width="16" height="5" rx="2" fill="#ffffff" stroke="#18181b" strokeWidth="1.5" />
           </g>
         )}
 
-        {/* Red Cowl / Scarf around neck */}
-        <ellipse cx="100" cy="106" rx="26" ry="7" fill="#ef4444" stroke="#b91c1c" strokeWidth="1.5" />
-        <rect x="85" y="106" width="8" height="18" rx="3" fill="#dc2626" />
+        {/* Puffy Red Neck Cowl Scarf & Flowing Tails */}
+        <ellipse cx="100" cy="104" rx="30" ry="10" fill="#ef4444" stroke="#18181b" strokeWidth="2.2" />
+        <path d="M 124 106 Q 146 112 152 130 Q 140 126 126 114 Z" fill="#ef4444" stroke="#18181b" strokeWidth="2" />
 
-        {/* Head inside Blue Ninja Cowl */}
-        <circle cx="100" cy="74" r="44" fill="#1d4ed8" stroke="#1e40af" strokeWidth="2.5" />
+        {/* Round Royal Blue Ninja Cowl (Zukin) */}
+        <circle cx="100" cy="70" r="48" fill="#1e40af" stroke="#18181b" strokeWidth="2.5" />
 
-        {/* White Face Opening */}
-        <ellipse cx="100" cy="76" rx="32" ry="28" fill="#ffffff" stroke="#1e40af" strokeWidth="2" />
+        {/* Clean White Oval Face Opening */}
+        <ellipse cx="100" cy="74" rx="36" ry="32" fill="#ffffff" stroke="#18181b" strokeWidth="2.2" />
 
-        {/* White Headband with Ninja Emblem */}
-        <rect x="70" y="44" width="60" height="8" rx="2" fill="#ffffff" stroke="#94a3b8" strokeWidth="1" />
-        <circle cx="100" cy="48" r="3" fill="#ef4444" />
+        {/* White Forehead Headband with Red Crest */}
+        <rect x="68" y="44" width="64" height="10" rx="3" fill="#ffffff" stroke="#18181b" strokeWidth="1.8" />
+        <circle cx="100" cy="49" r="3.5" fill="#ef4444" />
 
-        {/* Eyes (Round and determined) */}
+        {/* Eyes */}
         {state === 'sleeping' ? (
-          <g stroke="#0f172a" strokeWidth="2.5" strokeLinecap="round">
-            <line x1="84" y1="70" x2="94" y2="70" />
-            <line x1="106" y1="70" x2="116" y2="70" />
+          <g stroke="#18181b" strokeWidth="2.5" strokeLinecap="round">
+            <line x1="82" y1="70" x2="94" y2="70" />
+            <line x1="106" y1="70" x2="118" y2="70" />
           </g>
         ) : (
-          <g className="anim-blinking" style={{ transformOrigin: '100px 70px' }}>
-            <circle cx="88" cy="70" r="5" fill="#0f172a" />
-            <circle cx="86" cy="68" r="1.8" fill="#ffffff" />
-            <circle cx="112" cy="70" r="5" fill="#0f172a" />
-            <circle cx="110" cy="68" r="1.8" fill="#ffffff" />
+          <g className={animationsEnabled ? 'anim-blinking' : ''} style={{ transformOrigin: '100px 70px' }}>
+            <ellipse cx="88" cy="70" rx="6" ry="7.5" fill="#ffffff" stroke="#18181b" strokeWidth="2" />
+            <circle cx="89" cy="70" r="4.5" fill="#09090b" />
+            <circle cx="87" cy="68" r="1.8" fill="#ffffff" />
+
+            <ellipse cx="112" cy="70" rx="6" ry="7.5" fill="#ffffff" stroke="#18181b" strokeWidth="2" />
+            <circle cx="111" cy="70" r="4.5" fill="#09090b" />
+            <circle cx="109" cy="68" r="1.8" fill="#ffffff" />
           </g>
         )}
 
-        {/* Iconic Whirlpool / Swirl Cheeks (Naruto Swirl) 🌀 */}
-        <g stroke="#ef4444" strokeWidth="1.5" fill="none">
-          <circle cx="76" cy="84" r="6" />
-          <path d="M 76 81 A 3 3 0 0 1 79 84 A 3 3 0 0 1 76 87" />
-          <circle cx="124" cy="84" r="6" />
-          <path d="M 124 81 A 3 3 0 0 1 127 84 A 3 3 0 0 1 124 87" />
+        {/* Authentic Concentric Red Spiral Whirlpool Cheeks 🌀 */}
+        <g stroke="#ef4444" strokeWidth="2" fill="none" strokeLinecap="round">
+          {/* Left Whirlpool */}
+          <circle cx="74" cy="82" r="7" />
+          <path d="M 74 78 A 4 4 0 0 1 77 82 A 3 3 0 0 1 74 85 A 2 2 0 0 1 73 82" />
+
+          {/* Right Whirlpool */}
+          <circle cx="126" cy="82" r="7" />
+          <path d="M 126 78 A 4 4 0 0 1 129 82 A 3 3 0 0 1 126 85 A 2 2 0 0 1 125 82" />
         </g>
 
-        {/* Small straight mouth */}
+        {/* Straight / Smug Ninja Mouth */}
         {state === 'talking' ? (
-          <ellipse cx="100" cy="86" rx="6" ry="5" fill="#ef4444" stroke="#7f1d1d" strokeWidth="1.5" className="anim-talking" />
+          <ellipse cx="100" cy="86" rx="7" ry="5" fill="#ef4444" stroke="#18181b" strokeWidth="1.8" className={animationsEnabled ? 'anim-talking' : ''} />
         ) : (
-          <line x1="94" y1="86" x2="106" y2="86" stroke="#0f172a" strokeWidth="2.5" strokeLinecap="round" />
+          <line x1="94" y1="86" x2="106" y2="86" stroke="#18181b" strokeWidth="2.5" strokeLinecap="round" />
         )}
 
-        {renderAccessory(100, 70, 106)}
+        {renderAccessory(100, 70, 104)}
         {renderStateOverlays()}
       </svg>
     );

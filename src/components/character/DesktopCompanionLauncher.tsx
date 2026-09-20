@@ -93,6 +93,13 @@ export const DesktopCompanionLauncher: React.FC<DesktopCompanionLauncherProps> =
 
       const quote = charQuotes[character.type] || "I'm on your desktop! Finish your tasks! 👀";
 
+      const modalSvg = document.querySelector('#modal-mascot-preview svg');
+      const characterGraphic = modalSvg
+        ? `<div style="width: 135px; height: 135px; margin: 0 auto; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 8px 14px rgba(0,0,0,0.16));">${modalSvg.outerHTML}</div>`
+        : `<div style="font-size: 80px; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));">
+            ${character.type === 'shinchan' ? '👦' : character.type === 'doraemon' ? '🐱' : character.type === 'pikachu' ? '⚡' : character.type === 'luffy' ? '🍖' : '🥷'}
+          </div>`;
+
       pipWindow.document.body.innerHTML = `
         <div style="font-family: system-ui, sans-serif; text-align: center; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100vh; padding: 12px; box-sizing: border-box; background: linear-gradient(to bottom, #fffbeb, #fef3c7);">
           <div style="background: white; border: 2px solid #f59e0b; border-radius: 16px; padding: 8px 12px; font-size: 11px; font-weight: bold; color: #1e293b; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); width: 90%;">
@@ -100,11 +107,9 @@ export const DesktopCompanionLauncher: React.FC<DesktopCompanionLauncherProps> =
             <span style="color: #ea580c; font-size: 10px;">⚠️ ${incompleteTasks.length} task(s) remaining today!</span>
           </div>
 
-          <div id="pet-container" style="cursor: pointer; transform-origin: center;">
-            <div style="font-size: 80px; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));">
-              ${character.type === 'shinchan' ? '👦' : character.type === 'doraemon' ? '🐱' : character.type === 'pikachu' ? '⚡' : character.type === 'luffy' ? '🍖' : '🥷'}
-            </div>
-            <p style="margin: 0; font-size: 12px; font-weight: 800; color: #78350f;">${character.name}</p>
+          <div id="pet-container" style="cursor: pointer; transform-origin: center; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+            ${characterGraphic}
+            <p style="margin: 0; font-size: 13px; font-weight: 800; color: #78350f;">${character.name}</p>
           </div>
 
           <div style="width: 100%; display: flex; flex-direction: column; gap: 8px;">
@@ -178,7 +183,7 @@ export const DesktopCompanionLauncher: React.FC<DesktopCompanionLauncherProps> =
 
         {/* Mascot Spotlight */}
         <div className="flex flex-col sm:flex-row items-center gap-4 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-slate-850 dark:to-slate-800 p-4 rounded-3xl border border-amber-200/80 dark:border-slate-700 mb-5">
-          <div className="w-24 h-24 shrink-0 flex items-center justify-center">
+          <div id="modal-mascot-preview" className="w-24 h-24 shrink-0 flex items-center justify-center">
             <AnimatedCharacter config={character} state="excited" size="md" />
           </div>
           <div className="flex-1 text-center sm:text-left space-y-1">

@@ -243,128 +243,317 @@ class DesktopPet:
             self.draw_shinchan(cx, cy + bob)
 
     def draw_shinchan(self, cx, cy):
-        # Shinchan body
-        # Yellow shorts
-        self.canvas.create_rectangle(cx - 20, cy + 18, cx + 20, cy + 34, fill="#facc15", outline="#ca8a04", width=2)
-        # Red shirt
-        self.canvas.create_rectangle(cx - 24, cy - 8, cx + 24, cy + 20, fill="#ef4444", outline="#b91c1c", width=2)
-        # Legs & Shoes
-        self.canvas.create_rectangle(cx - 16, cy + 34, cx - 6, cy + 46, fill="#fed7aa", outline="")
-        self.canvas.create_rectangle(cx + 6, cy + 34, cx + 16, cy + 46, fill="#fed7aa", outline="")
-        self.canvas.create_oval(cx - 20, cy + 42, cx - 4, cy + 50, fill="#facc15", outline="#ca8a04", width=1)
-        self.canvas.create_oval(cx + 4, cy + 42, cx + 20, cy + 50, fill="#facc15", outline="#ca8a04", width=1)
-        # Head (potato shape)
-        self.canvas.create_oval(cx - 30, cy - 42, cx + 30, cy - 2, fill="#fed7aa", outline="#ea580c", width=2)
-        # Left cheek bump
-        self.canvas.create_oval(cx - 38, cy - 28, cx - 22, cy - 8, fill="#fed7aa", outline="#ea580c", width=2)
-        self.canvas.create_oval(cx - 32, cy - 25, cx - 18, cy - 10, fill="#fed7aa", outline="")
-        # Black hair
-        self.canvas.create_arc(cx - 28, cy - 46, cx + 28, cy - 20, start=30, extent=120, fill="#0f172a", outline="")
-        # Big thick eyebrows!
-        brow_y = -32 if self.state != "nagging" else -36
-        self.canvas.create_line(cx - 22, cy + brow_y, cx - 6, cy + brow_y + 2, width=4, fill="#0f172a", capstyle=tk.ROUND)
-        self.canvas.create_line(cx + 6, cy + brow_y + 2, cx + 22, cy + brow_y, width=4, fill="#0f172a", capstyle=tk.ROUND)
-        # Eyes
-        self.canvas.create_oval(cx - 16, cy - 24, cx - 6, cy - 14, fill="#0f172a", outline="")
-        self.canvas.create_oval(cx - 14, cy - 22, cx - 10, cy - 18, fill="#ffffff", outline="")
-        self.canvas.create_oval(cx + 6, cy - 24, cx + 16, cy - 14, fill="#0f172a", outline="")
-        self.canvas.create_oval(cx + 8, cy - 22, cx + 12, cy - 18, fill="#ffffff", outline="")
-        # Rosy cheeks
-        self.canvas.create_oval(cx - 26, cy - 16, cx - 16, cy - 10, fill="#fda4af", outline="")
-        self.canvas.create_oval(cx + 16, cy - 16, cx + 26, cy - 10, fill="#fda4af", outline="")
-        # Mouth
-        if self.state == "nagging":
-            self.canvas.create_oval(cx - 8, cy - 10, cx + 8, cy + 2, fill="#ef4444", outline="#7f1d1d")
+        # Shinchan: Authentic Crayon Shin-chan cartoon model
+        # Legs & White Socks & Yellow Shoes
+        self.canvas.create_rectangle(cx - 14, cy + 32, cx - 4, cy + 46, fill="#fde2c7", outline="#18181b", width=2)
+        self.canvas.create_rectangle(cx + 4, cy + 32, cx + 14, cy + 46, fill="#fde2c7", outline="#18181b", width=2)
+        # White socks
+        self.canvas.create_rectangle(cx - 15, cy + 40, cx - 3, cy + 45, fill="#ffffff", outline="#18181b", width=1.5)
+        self.canvas.create_rectangle(cx + 3, cy + 40, cx + 15, cy + 45, fill="#ffffff", outline="#18181b", width=1.5)
+        # Yellow shoes with white sole
+        self.canvas.create_oval(cx - 18, cy + 44, cx - 2, cy + 52, fill="#facc15", outline="#18181b", width=1.8)
+        self.canvas.create_oval(cx + 2, cy + 44, cx + 18, cy + 52, fill="#facc15", outline="#18181b", width=1.8)
+        self.canvas.create_line(cx - 16, cy + 50, cx - 4, cy + 50, fill="#ffffff", width=1.8)
+        self.canvas.create_line(cx + 4, cy + 50, cx + 16, cy + 50, fill="#ffffff", width=1.8)
+
+        # Yellow shorts with waistband
+        self.canvas.create_polygon(cx - 20, cy + 18, cx + 20, cy + 18, cx + 18, cy + 34, cx + 2, cy + 34, cx, cy + 28, cx - 2, cy + 34, cx - 18, cy + 34, fill="#facc15", outline="#18181b", width=2)
+        self.canvas.create_line(cx - 18, cy + 21, cx + 18, cy + 21, fill="#ca8a04", width=1)
+
+        # Red T-shirt & sleeves
+        self.canvas.create_rectangle(cx - 22, cy - 6, cx + 22, cy + 18, fill="#ef4444", outline="#18181b", width=2)
+        # Yellow collar rim
+        self.canvas.create_arc(cx - 8, cy - 10, cx + 8, cy - 4, start=180, extent=180, style=tk.ARC, outline="#facc15", width=2)
+        # Chubby arms
+        self.canvas.create_oval(cx - 28, cy - 2, cx - 18, cy + 12, fill="#ef4444", outline="#18181b", width=1.5)
+        self.canvas.create_oval(cx + 18, cy - 2, cx + 28, cy + 12, fill="#ef4444", outline="#18181b", width=1.5)
+        self.canvas.create_oval(cx - 29, cy + 8, cx - 21, cy + 16, fill="#fde2c7", outline="#18181b", width=1.5)
+        self.canvas.create_oval(cx + 21, cy + 8, cx + 29, cy + 16, fill="#fde2c7", outline="#18181b", width=1.5)
+
+        # Potato Head shape (smooth polygon for authentic Shinchan cheek silhouette)
+        head_pts = [
+            cx + 24, cy - 20,
+            cx + 14, cy - 38,
+            cx - 8, cy - 38,
+            cx - 26, cy - 26,
+            cx - 36, cy - 12,
+            cx - 38, cy - 2,
+            cx - 30, cy + 10,
+            cx - 14, cy + 16,
+            cx + 14, cy + 14,
+            cx + 24, cy + 2,
+            cx + 26, cy - 8
+        ]
+        self.canvas.create_polygon(head_pts, smooth=True, fill="#fde2c7", outline="#18181b", width=2.2)
+
+        # Right ear
+        self.canvas.create_oval(cx + 22, cy - 12, cx + 30, cy + 2, fill="#fde2c7", outline="#18181b", width=1.8)
+        self.canvas.create_line(cx + 24, cy - 6, cx + 27, cy - 3, fill="#ea580c", width=1.2)
+
+        # Black cropped hair
+        hair_pts = [
+            cx - 24, cy - 24,
+            cx - 6, cy - 38,
+            cx + 14, cy - 38,
+            cx + 24, cy - 20,
+            cx + 23, cy - 10,
+            cx + 18, cy - 24,
+            cx - 6, cy - 30,
+            cx - 20, cy - 20
+        ]
+        self.canvas.create_polygon(hair_pts, smooth=True, fill="#09090b", outline="")
+
+        # Thick, iconic black eyebrows!
+        brow_y = -26 if self.state != "nagging" else -29
+        self.canvas.create_line(cx - 24, cy + brow_y + 1, cx - 8, cy + brow_y - 2, width=5, fill="#09090b", capstyle=tk.ROUND)
+        self.canvas.create_line(cx + 4, cy + brow_y - 2, cx + 20, cy + brow_y + 1, width=5, fill="#09090b", capstyle=tk.ROUND)
+
+        # Anime Eyes with white sclera, black pupil, and white shine dot
+        if self.state == "sleeping":
+            self.canvas.create_arc(cx - 20, cy - 18, cx - 8, cy - 10, start=0, extent=180, style=tk.ARC, outline="#18181b", width=2)
+            self.canvas.create_arc(cx + 4, cy - 19, cx + 16, cy - 11, start=0, extent=180, style=tk.ARC, outline="#18181b", width=2)
         else:
-            self.canvas.create_arc(cx - 8, cy - 12, cx + 8, cy - 2, start=180, extent=180, fill="#ef4444", outline="#7f1d1d")
+            # Left Eye
+            self.canvas.create_oval(cx - 20, cy - 20, cx - 8, cy - 8, fill="#ffffff", outline="#18181b", width=1.8)
+            self.canvas.create_oval(cx - 17, cy - 18, cx - 9, cy - 10, fill="#09090b")
+            self.canvas.create_oval(cx - 16, cy - 17, cx - 13, cy - 14, fill="#ffffff")
+            # Right Eye
+            self.canvas.create_oval(cx + 5, cy - 21, cx + 17, cy - 9, fill="#ffffff", outline="#18181b", width=1.8)
+            self.canvas.create_oval(cx + 7, cy - 19, cx + 15, cy - 11, fill="#09090b")
+            self.canvas.create_oval(cx + 8, cy - 18, cx + 11, cy - 15, fill="#ffffff")
+
+        # Rosy Cheeks
+        self.canvas.create_oval(cx - 34, cy - 4, cx - 22, cy + 4, fill="#fb7185", outline="")
+        self.canvas.create_oval(cx + 12, cy - 6, cx + 22, cy + 2, fill="#fb7185", outline="")
+
+        # Iconic Sideways Mouth
+        if self.state == "nagging":
+            self.canvas.create_oval(cx - 18, cy - 2, cx - 4, cy + 10, fill="#ef4444", outline="#18181b", width=1.5)
+            self.canvas.create_oval(cx - 15, cy + 3, cx - 7, cy + 9, fill="#f472b6", outline="")
+        else:
+            self.canvas.create_arc(cx - 20, cy - 6, cx - 4, cy + 6, start=180, extent=180, fill="#ef4444", outline="#18181b", width=1.5)
+            self.canvas.create_arc(cx - 17, cy - 1, cx - 7, cy + 5, start=180, extent=180, fill="#f472b6", outline="")
 
     def draw_doraemon(self, cx, cy):
-        # Bamboo-copter
-        self.canvas.create_line(cx, cy - 45, cx, cy - 38, width=2, fill="#ca8a04")
-        self.canvas.create_line(cx - 16, cy - 45, cx + 16, cy - 45, width=3, fill="#facc15")
+        # Doraemon: Authentic Fujiko F. Fujio cartoon model
+        # Spinning Bamboo-copter
+        self.canvas.create_line(cx, cy - 44, cx, cy - 36, width=2, fill="#ca8a04")
+        self.canvas.create_oval(cx - 6, cy - 37, cx + 6, cy - 34, fill="#eab308", outline="#18181b")
+        rotor_dx = int(math.sin(self.step_counter * 0.5) * 18)
+        self.canvas.create_line(cx - rotor_dx, cy - 44, cx + rotor_dx, cy - 44, width=3.5, fill="#facc15", capstyle=tk.ROUND)
+
+        # White feet
+        self.canvas.create_oval(cx - 24, cy + 36, cx - 2, cy + 48, fill="#ffffff", outline="#18181b", width=2)
+        self.canvas.create_oval(cx + 2, cy + 36, cx + 24, cy + 48, fill="#ffffff", outline="#18181b", width=2)
+
         # Blue Body
-        self.canvas.create_oval(cx - 26, cy - 4, cx + 26, cy + 40, fill="#0284c7", outline="#0369a1", width=2)
-        # White belly & pocket
-        self.canvas.create_oval(cx - 18, cy + 4, cx + 18, cy + 34, fill="#ffffff", outline="#0284c7", width=1)
-        self.canvas.create_arc(cx - 14, cy + 10, cx + 14, cy + 32, start=180, extent=180, fill="#ffffff", outline="#0284c7", width=1.5)
-        # Red collar & bell
-        self.canvas.create_rectangle(cx - 20, cy - 6, cx + 20, cy - 1, fill="#ef4444", outline="")
-        self.canvas.create_oval(cx - 5, cy - 4, cx + 5, cy + 6, fill="#facc15", outline="#78350f")
+        self.canvas.create_oval(cx - 28, cy - 2, cx + 28, cy + 42, fill="#0284c7", outline="#18181b", width=2.2)
+
+        # White belly & 4D pocket
+        self.canvas.create_oval(cx - 20, cy + 6, cx + 20, cy + 36, fill="#ffffff", outline="#18181b", width=1.5)
+        self.canvas.create_arc(cx - 15, cy + 12, cx + 15, cy + 34, start=180, extent=180, fill="#ffffff", outline="#18181b", width=1.8)
+        self.canvas.create_line(cx - 15, cy + 23, cx + 15, cy + 23, fill="#18181b", width=1.5)
+
+        # Round white paws (hands)
+        self.canvas.create_oval(cx - 38, cy + 8, cx - 22, cy + 24, fill="#ffffff", outline="#18181b", width=2)
+        self.canvas.create_oval(cx + 22, cy + 8, cx + 38, cy + 24, fill="#ffffff", outline="#18181b", width=2)
+
+        # Red collar & golden jingle bell
+        self.canvas.create_rectangle(cx - 24, cy - 5, cx + 24, cy + 1, fill="#ef4444", outline="#18181b", width=1.5)
+        self.canvas.create_oval(cx - 6, cy - 3, cx + 6, cy + 9, fill="#facc15", outline="#18181b", width=1.5)
+        self.canvas.create_line(cx - 4, cy + 1, cx + 4, cy + 1, fill="#92400e", width=1)
+        self.canvas.create_oval(cx - 1.5, cy + 3, cx + 1.5, cy + 6, fill="#78350f", outline="")
+
         # Blue Head
-        self.canvas.create_oval(cx - 30, cy - 40, cx + 30, cy + 4, fill="#0284c7", outline="#0369a1", width=2)
-        # White face
-        self.canvas.create_oval(cx - 24, cy - 34, cx + 24, cy + 2, fill="#ffffff", outline="#0369a1", width=1)
-        # Big oval eyes
-        self.canvas.create_oval(cx - 12, cy - 34, cx, cy - 16, fill="#ffffff", outline="#0f172a", width=1.5)
-        self.canvas.create_oval(cx, cy - 34, cx + 12, cy - 16, fill="#ffffff", outline="#0f172a", width=1.5)
-        self.canvas.create_oval(cx - 7, cy - 26, cx - 3, cy - 22, fill="#0f172a")
-        self.canvas.create_oval(cx + 3, cy - 26, cx + 7, cy - 22, fill="#0f172a")
-        # Red nose
-        self.canvas.create_oval(cx - 4, cy - 19, cx + 4, cy - 11, fill="#ef4444", outline="")
-        # Whiskers
-        self.canvas.create_line(cx - 20, cy - 16, cx - 6, cy - 14, fill="#0f172a")
-        self.canvas.create_line(cx - 22, cy - 11, cx - 6, cy - 11, fill="#0f172a")
-        self.canvas.create_line(cx + 6, cy - 14, cx + 20, cy - 16, fill="#0f172a")
-        self.canvas.create_line(cx + 6, cy - 11, cx + 22, cy - 11, fill="#0f172a")
+        self.canvas.create_oval(cx - 32, cy - 38, cx + 32, cy + 8, fill="#0284c7", outline="#18181b", width=2.2)
+
+        # White Face Mask
+        self.canvas.create_oval(cx - 26, cy - 32, cx + 26, cy + 6, fill="#ffffff", outline="#18181b", width=1.8)
+
+        # Touching Oval Eyes with Pupils & Shine
+        self.canvas.create_oval(cx - 13, cy - 34, cx, cy - 14, fill="#ffffff", outline="#18181b", width=1.8)
+        self.canvas.create_oval(cx, cy - 34, cx + 13, cy - 14, fill="#ffffff", outline="#18181b", width=1.8)
+        self.canvas.create_oval(cx - 7, cy - 24, cx - 2, cy - 19, fill="#09090b")
+        self.canvas.create_oval(cx - 6, cy - 23, cx - 4, cy - 21, fill="#ffffff")
+        self.canvas.create_oval(cx + 2, cy - 24, cx + 7, cy - 19, fill="#09090b")
+        self.canvas.create_oval(cx + 3, cy - 23, cx + 5, cy - 21, fill="#ffffff")
+
+        # Shiny Red Nose
+        self.canvas.create_oval(cx - 5, cy - 18, cx + 5, cy - 8, fill="#ef4444", outline="#18181b", width=1.2)
+        self.canvas.create_oval(cx - 2.5, cy - 16, cx - 0.5, cy - 14, fill="#ffffff", outline="")
+
+        # Vertical Philtrum Line
+        self.canvas.create_line(cx, cy - 8, cx, cy + 2, fill="#18181b", width=1.8)
+
+        # 6 Whiskers (3 on each side)
+        self.canvas.create_line(cx - 24, cy - 12, cx - 6, cy - 9, fill="#18181b", width=1.5)
+        self.canvas.create_line(cx - 25, cy - 6, cx - 6, cy - 6, fill="#18181b", width=1.5)
+        self.canvas.create_line(cx - 24, cy, cx - 6, cy - 3, fill="#18181b", width=1.5)
+
+        self.canvas.create_line(cx + 6, cy - 9, cx + 24, cy - 12, fill="#18181b", width=1.5)
+        self.canvas.create_line(cx + 6, cy - 6, cx + 25, cy - 6, fill="#18181b", width=1.5)
+        self.canvas.create_line(cx + 6, cy - 3, cx + 24, cy, fill="#18181b", width=1.5)
+
+        # Giant D-Smile with Pink Tongue
+        self.canvas.create_arc(cx - 16, cy - 4, cx + 16, cy + 10, start=180, extent=180, fill="#dc2626", outline="#18181b", width=1.8)
+        self.canvas.create_arc(cx - 8, cy + 2, cx + 8, cy + 8, start=180, extent=180, fill="#fb7185", outline="")
 
     def draw_pikachu(self, cx, cy):
-        # Ears with black tips
-        self.canvas.create_line(cx - 16, cy - 25, cx - 28, cy - 50, width=8, fill="#facc15", capstyle=tk.ROUND)
-        self.canvas.create_line(cx - 26, cy - 46, cx - 30, cy - 52, width=8, fill="#0f172a", capstyle=tk.ROUND)
-        self.canvas.create_line(cx + 16, cy - 25, cx + 28, cy - 50, width=8, fill="#facc15", capstyle=tk.ROUND)
-        self.canvas.create_line(cx + 26, cy - 46, cx + 30, cy - 52, width=8, fill="#0f172a", capstyle=tk.ROUND)
-        # Tail
-        self.canvas.create_line(cx + 22, cy + 20, cx + 36, cy + 6, width=6, fill="#facc15")
-        self.canvas.create_line(cx + 36, cy + 6, cx + 32, cy - 8, width=6, fill="#facc15")
-        self.canvas.create_line(cx + 32, cy - 8, cx + 48, cy - 18, width=8, fill="#facc15")
+        # Pikachu: Authentic Pokémon anime model
+        # Lightning Bolt Tail
+        tail_pts = [
+            cx + 20, cy + 18,
+            cx + 34, cy + 6,
+            cx + 28, cy - 6,
+            cx + 46, cy - 18,
+            cx + 42, cy - 24,
+            cx + 22, cy - 8,
+            cx + 28, cy + 4,
+            cx + 14, cy + 12
+        ]
+        self.canvas.create_polygon(tail_pts, fill="#facc15", outline="#18181b", width=2)
+        # Brown tail base
+        self.canvas.create_polygon([cx + 14, cy + 12, cx + 20, cy + 18, cx + 16, cy + 24, cx + 10, cy + 18], fill="#78350f", outline="#18181b", width=1.5)
+
+        # Flat feet
+        self.canvas.create_oval(cx - 22, cy + 36, cx - 4, cy + 46, fill="#facc15", outline="#18181b", width=2)
+        self.canvas.create_oval(cx + 4, cy + 36, cx + 22, cy + 46, fill="#facc15", outline="#18181b", width=2)
+
         # Body
-        self.canvas.create_oval(cx - 24, cy - 8, cx + 24, cy + 42, fill="#facc15", outline="#ca8a04", width=2)
-        # Head
-        self.canvas.create_oval(cx - 26, cy - 36, cx + 26, cy + 4, fill="#facc15", outline="#ca8a04", width=2)
-        # Red cheeks
-        self.canvas.create_oval(cx - 24, cy - 14, cx - 12, cy - 2, fill="#ef4444", outline="")
-        self.canvas.create_oval(cx + 12, cy - 14, cx + 24, cy - 2, fill="#ef4444", outline="")
-        # Eyes
-        self.canvas.create_oval(cx - 16, cy - 24, cx - 8, cy - 16, fill="#0f172a")
-        self.canvas.create_oval(cx - 14, cy - 22, cx - 10, cy - 18, fill="#ffffff")
-        self.canvas.create_oval(cx + 8, cy - 24, cx + 16, cy - 16, fill="#0f172a")
+        self.canvas.create_oval(cx - 26, cy - 4, cx + 26, cy + 42, fill="#facc15", outline="#18181b", width=2.2)
+
+        # Brown stripes on back
+        self.canvas.create_arc(cx - 22, cy + 8, cx - 2, cy + 18, start=0, extent=90, style=tk.ARC, outline="#78350f", width=3)
+        self.canvas.create_arc(cx - 22, cy + 18, cx - 2, cy + 28, start=0, extent=90, style=tk.ARC, outline="#78350f", width=3)
+
+        # Forepaws
+        self.canvas.create_oval(cx - 14, cy + 8, cx - 4, cy + 20, fill="#facc15", outline="#18181b", width=1.8)
+        self.canvas.create_oval(cx + 4, cy + 8, cx + 14, cy + 20, fill="#facc15", outline="#18181b", width=1.8)
+
+        # Ears with Diagonal Black Tips
+        # Left Ear
+        self.canvas.create_polygon([cx - 16, cy - 24, cx - 34, cy - 50, cx - 22, cy - 32], fill="#facc15", outline="#18181b", width=2)
+        self.canvas.create_polygon([cx - 28, cy - 42, cx - 34, cy - 50, cx - 30, cy - 46], fill="#18181b", outline="")
+        # Right Ear
+        self.canvas.create_polygon([cx + 16, cy - 24, cx + 34, cy - 50, cx + 22, cy - 32], fill="#facc15", outline="#18181b", width=2)
+        self.canvas.create_polygon([cx + 28, cy - 42, cx + 34, cy - 50, cx + 30, cy - 46], fill="#18181b", outline="")
+
+        # Chubby Head
+        self.canvas.create_oval(cx - 28, cy - 36, cx + 28, cy + 4, fill="#facc15", outline="#18181b", width=2.2)
+
+        # Red Cheek Pouches
+        self.canvas.create_oval(cx - 26, cy - 14, cx - 14, cy - 2, fill="#ef4444", outline="#18181b", width=1.5)
+        self.canvas.create_oval(cx + 14, cy - 14, cx + 26, cy - 2, fill="#ef4444", outline="#18181b", width=1.5)
+
+        # Eyes with shine dots
+        self.canvas.create_oval(cx - 18, cy - 24, cx - 8, cy - 14, fill="#1e1b4b", outline="#18181b", width=1.5)
+        self.canvas.create_oval(cx - 16, cy - 22, cx - 12, cy - 18, fill="#ffffff")
+        self.canvas.create_oval(cx + 8, cy - 24, cx + 18, cy - 14, fill="#1e1b4b", outline="#18181b", width=1.5)
         self.canvas.create_oval(cx + 10, cy - 22, cx + 14, cy - 18, fill="#ffffff")
 
+        # Tiny Nose & Cat Mouth (ω)
+        self.canvas.create_polygon([cx, cy - 15, cx - 1.5, cy - 17, cx + 1.5, cy - 17], fill="#18181b")
+        self.canvas.create_arc(cx - 6, cy - 12, cx, cy - 6, start=180, extent=180, style=tk.ARC, outline="#18181b", width=1.8)
+        self.canvas.create_arc(cx, cy - 12, cx + 6, cy - 6, start=180, extent=180, style=tk.ARC, outline="#18181b", width=1.8)
+
     def draw_luffy(self, cx, cy):
-        # Straw hat
-        self.canvas.create_oval(cx - 36, cy - 42, cx + 36, cy - 26, fill="#facc15", outline="#ca8a04", width=2)
-        self.canvas.create_oval(cx - 20, cy - 50, cx + 20, cy - 32, fill="#facc15", outline="#ca8a04", width=2)
-        self.canvas.create_rectangle(cx - 18, cy - 36, cx + 18, cy - 32, fill="#ef4444", outline="")
-        # Head & Hair
-        self.canvas.create_oval(cx - 22, cy - 32, cx + 22, cy + 4, fill="#fed7aa", outline="#ea580c", width=2)
-        # Left eye scar
-        self.canvas.create_line(cx - 14, cy - 12, cx - 6, cy - 10, width=2, fill="#7c2d12")
-        # Eyes
-        self.canvas.create_oval(cx - 14, cy - 20, cx - 6, cy - 12, fill="#0f172a")
-        self.canvas.create_oval(cx + 6, cy - 20, cx + 14, cy - 12, fill="#0f172a")
-        # Big D-Grin
-        self.canvas.create_arc(cx - 12, cy - 12, cx + 12, cy + 2, start=180, extent=180, fill="#ffffff", outline="#0f172a", width=1.5)
-        # Red vest & Blue shorts
-        self.canvas.create_rectangle(cx - 18, cy + 4, cx + 18, cy + 26, fill="#ef4444", outline="#b91c1c", width=1.5)
-        self.canvas.create_rectangle(cx - 16, cy + 26, cx + 16, cy + 40, fill="#2563eb", outline="#1d4ed8", width=1.5)
+        # Luffy: Authentic One Piece Mugiwara model
+        # Legs & Sandals
+        self.canvas.create_rectangle(cx - 14, cy + 30, cx - 4, cy + 44, fill="#fed7aa", outline="#18181b", width=2)
+        self.canvas.create_rectangle(cx + 4, cy + 30, cx + 14, cy + 44, fill="#fed7aa", outline="#18181b", width=2)
+        self.canvas.create_oval(cx - 16, cy + 42, cx - 2, cy + 48, fill="#ca8a04", outline="#18181b", width=1.5)
+        self.canvas.create_oval(cx + 2, cy + 42, cx + 16, cy + 48, fill="#ca8a04", outline="#18181b", width=1.5)
+
+        # Denim Blue Shorts with White Cuffs
+        self.canvas.create_rectangle(cx - 18, cy + 18, cx + 18, cy + 32, fill="#2563eb", outline="#18181b", width=2)
+        self.canvas.create_oval(cx - 16, cy + 28, cx - 2, cy + 34, fill="#ffffff", outline="#18181b", width=1.5)
+        self.canvas.create_oval(cx + 2, cy + 28, cx + 16, cy + 34, fill="#ffffff", outline="#18181b", width=1.5)
+
+        # Bare chest & open red vest
+        self.canvas.create_rectangle(cx - 16, cy - 4, cx + 16, cy + 18, fill="#fed7aa", outline="")
+        self.canvas.create_rectangle(cx - 20, cy - 4, cx - 12, cy + 18, fill="#ef4444", outline="#18181b", width=1.8)
+        self.canvas.create_rectangle(cx + 12, cy - 4, cx + 20, cy + 18, fill="#ef4444", outline="#18181b", width=1.8)
+        # Yellow sash
+        self.canvas.create_rectangle(cx - 18, cy + 15, cx + 18, cy + 20, fill="#facc15", outline="#18181b", width=1.5)
+
+        # Head & Spiky Hair
+        self.canvas.create_oval(cx - 22, cy - 30, cx + 22, cy + 4, fill="#fed7aa", outline="#18181b", width=2.2)
+        # Hair spikes
+        hair_pts = [cx - 24, cy - 18, cx - 28, cy - 28, cx - 18, cy - 26, cx - 12, cy - 34, cx, cy - 28, cx + 12, cy - 34, cx + 18, cy - 26, cx + 28, cy - 28, cx + 24, cy - 18]
+        self.canvas.create_polygon(hair_pts, fill="#09090b", outline="")
+
+        # Straw Hat (Mugiwara)
+        self.canvas.create_oval(cx - 38, cy - 36, cx + 38, cy - 22, fill="#f59e0b", outline="#18181b", width=2.2)
+        self.canvas.create_arc(cx - 22, cy - 48, cx + 22, cy - 26, start=0, extent=180, fill="#f59e0b", outline="#18181b", width=2)
+        self.canvas.create_rectangle(cx - 20, cy - 32, cx + 20, cy - 28, fill="#ef4444", outline="")
+
+        # Eyes & Left Eye Scar
+        self.canvas.create_oval(cx - 14, cy - 18, cx - 6, cy - 10, fill="#ffffff", outline="#18181b", width=1.5)
+        self.canvas.create_oval(cx - 12, cy - 16, cx - 7, cy - 11, fill="#09090b")
+        self.canvas.create_oval(cx + 6, cy - 18, cx + 14, cy - 10, fill="#ffffff", outline="#18181b", width=1.5)
+        self.canvas.create_oval(cx + 7, cy - 16, cx + 12, cy - 11, fill="#09090b")
+
+        # Childhood stitch scar under left eye
+        self.canvas.create_line(cx - 14, cy - 7, cx - 6, cy - 6, fill="#7c2d12", width=1.8)
+        self.canvas.create_line(cx - 12, cy - 9, cx - 12, cy - 5, fill="#7c2d12", width=1.5)
+        self.canvas.create_line(cx - 8, cy - 9, cx - 8, cy - 5, fill="#7c2d12", width=1.5)
+
+        # Signature Toothy D-Smile
+        self.canvas.create_arc(cx - 14, cy - 8, cx + 14, cy + 4, start=180, extent=180, fill="#ffffff", outline="#18181b", width=2)
+        self.canvas.create_line(cx - 14, cy - 2, cx + 14, cy - 2, fill="#18181b", width=1.5)
+        self.canvas.create_line(cx - 5, cy - 2, cx - 5, cy + 3, fill="#18181b", width=1)
+        self.canvas.create_line(cx, cy - 2, cx, cy + 4, fill="#18181b", width=1)
+        self.canvas.create_line(cx + 5, cy - 2, cx + 5, cy + 3, fill="#18181b", width=1)
 
     def draw_hattori(self, cx, cy):
-        # Ninja hood
-        self.canvas.create_oval(cx - 26, cy - 36, cx + 26, cy + 4, fill="#1d4ed8", outline="#1e40af", width=2)
-        # Face opening
-        self.canvas.create_oval(cx - 18, cy - 28, cx + 18, cy + 2, fill="#ffffff", outline="#1e40af", width=1.5)
-        # Headband with red circle
-        self.canvas.create_rectangle(cx - 18, cy - 34, cx + 18, cy - 28, fill="#ffffff", outline="#94a3b8")
-        self.canvas.create_oval(cx - 3, cy - 33, cx + 3, cy - 29, fill="#ef4444", outline="")
-        # Swirl cheeks 🌀
-        self.canvas.create_oval(cx - 14, cy - 14, cx - 6, cy - 6, outline="#ef4444", width=1.5)
-        self.canvas.create_oval(cx + 6, cy - 14, cx + 14, cy - 6, outline="#ef4444", width=1.5)
-        # Eyes
-        self.canvas.create_oval(cx - 12, cy - 24, cx - 6, cy - 16, fill="#0f172a")
-        self.canvas.create_oval(cx + 6, cy - 24, cx + 12, cy - 16, fill="#0f172a")
-        # Body & Red scarf
-        self.canvas.create_rectangle(cx - 18, cy + 4, cx + 18, cy + 38, fill="#1d4ed8", outline="#1e40af", width=2)
-        self.canvas.create_rectangle(cx - 14, cy + 2, cx + 14, cy + 8, fill="#ef4444", outline="")
+        # Ninja Hattori: Authentic Fujiko Fujio A model
+        # Ninja Katana sword on back
+        self.canvas.create_line(cx - 28, cy - 24, cx + 28, cy + 32, fill="#334155", width=4.5)
+        self.canvas.create_rectangle(cx - 30, cy - 26, cx - 22, cy - 18, fill="#facc15", outline="#18181b")
+
+        # Blue trousers & white gaiters
+        self.canvas.create_rectangle(cx - 14, cy + 30, cx - 4, cy + 42, fill="#1e40af", outline="#18181b", width=2)
+        self.canvas.create_rectangle(cx + 4, cy + 30, cx + 14, cy + 42, fill="#1e40af", outline="#18181b", width=2)
+        self.canvas.create_rectangle(cx - 15, cy + 36, cx - 3, cy + 42, fill="#ffffff", outline="#18181b", width=1.5)
+        self.canvas.create_rectangle(cx + 3, cy + 36, cx + 15, cy + 42, fill="#ffffff", outline="#18181b", width=1.5)
+
+        # Blue Kimono Tunic & Red Obi
+        self.canvas.create_rectangle(cx - 18, cy + 2, cx + 18, cy + 30, fill="#1e40af", outline="#18181b", width=2)
+        self.canvas.create_polygon([cx, cy + 12, cx - 6, cy + 2, cx + 6, cy + 2], fill="#ffffff", outline="")
+        self.canvas.create_rectangle(cx - 18, cy + 22, cx + 18, cy + 27, fill="#ef4444", outline="#18181b", width=1.5)
+
+        # Red Puffy Scarf
+        self.canvas.create_oval(cx - 20, cy - 2, cx + 20, cy + 8, fill="#ef4444", outline="#18181b", width=1.8)
+        self.canvas.create_polygon([cx + 14, cy + 2, cx + 26, cy + 10, cx + 18, cy + 18], fill="#ef4444", outline="#18181b")
+
+        # Hands in Ninja Mudra
+        self.canvas.create_rectangle(cx - 4, cy + 10, cx + 4, cy + 18, fill="#fed7aa", outline="#18181b", width=1.5)
+
+        # Blue Ninja Cowl (Zukin)
+        self.canvas.create_oval(cx - 26, cy - 36, cx + 26, cy + 4, fill="#1e40af", outline="#18181b", width=2.2)
+
+        # White Face Opening
+        self.canvas.create_oval(cx - 20, cy - 30, cx + 20, cy + 2, fill="#ffffff", outline="#18181b", width=1.8)
+
+        # White Forehead Band with Red Sun Crest
+        self.canvas.create_rectangle(cx - 18, cy - 32, cx + 18, cy - 26, fill="#ffffff", outline="#18181b", width=1.5)
+        self.canvas.create_oval(cx - 3, cy - 31, cx + 3, cy - 27, fill="#ef4444", outline="")
+
+        # Authentic Concentric Swirl Cheeks 🌀
+        self.canvas.create_oval(cx - 16, cy - 14, cx - 8, cy - 6, outline="#ef4444", width=1.8)
+        self.canvas.create_oval(cx + 8, cy - 14, cx + 16, cy - 6, outline="#ef4444", width=1.8)
+
+        # Expressive Eyes
+        self.canvas.create_oval(cx - 14, cy - 22, cx - 6, cy - 12, fill="#ffffff", outline="#18181b", width=1.5)
+        self.canvas.create_oval(cx - 12, cy - 20, cx - 7, cy - 14, fill="#09090b")
+        self.canvas.create_oval(cx - 11, cy - 19, cx - 9, cy - 17, fill="#ffffff")
+
+        self.canvas.create_oval(cx + 6, cy - 22, cx + 14, cy - 12, fill="#ffffff", outline="#18181b", width=1.5)
+        self.canvas.create_oval(cx + 7, cy - 20, cx + 12, cy - 14, fill="#09090b")
+        self.canvas.create_oval(cx + 8, cy - 19, cx + 10, cy - 17, fill="#ffffff")
+
+        # Ninja Mouth
+        self.canvas.create_line(cx - 6, cy - 4, cx + 6, cy - 4, fill="#18181b", width=2)
 
     def run(self):
         self.root.mainloop()
