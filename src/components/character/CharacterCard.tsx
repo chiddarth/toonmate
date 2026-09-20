@@ -28,6 +28,7 @@ import {
   Clock,
   Flame,
   CheckCircle2,
+  Monitor,
 } from 'lucide-react';
 
 interface CharacterCardProps {
@@ -36,6 +37,7 @@ interface CharacterCardProps {
   todayEvents: ScheduleEvent[];
   onOpenChat: () => void;
   onOpenAddEvent: () => void;
+  onOpenDesktopPet: () => void;
   streakDays: number;
 }
 
@@ -45,6 +47,7 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
   todayEvents,
   onOpenChat,
   onOpenAddEvent,
+  onOpenDesktopPet,
   streakDays,
 }) => {
   const [characterState, setCharacterState] = useState<CharacterState>('idle');
@@ -142,7 +145,7 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
   // Handle character click (poke reaction)
   const handlePokeCharacter = () => {
     audioService.playPop();
-    const reaction = getPokedReaction(character.name, character.personality);
+    const reaction = getPokedReaction(character.name, character.personality, character.type);
     setCharacterState(reaction.state);
     setBubbleText(reaction.text);
 
@@ -315,22 +318,32 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
               </div>
             </div>
 
-            {/* Action Buttons: Chat & Add Event */}
-            <div className="flex items-center gap-3 pt-1">
+            {/* Action Buttons: Chat & Add Event & Desktop Pet */}
+            <div className="flex items-center gap-2.5 pt-1">
               <button
                 onClick={onOpenChat}
-                className="flex-1 cartoon-btn flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold text-sm shadow-md hover:shadow-indigo-500/25 hover:from-indigo-600 hover:to-purple-700"
+                className="flex-1 cartoon-btn flex items-center justify-center gap-1.5 px-3 py-3 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-indigo-500/25 hover:from-indigo-600 hover:to-purple-700"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>Chat with {character.name}</span>
+                <span>Chat</span>
+              </button>
+
+              <button
+                onClick={onOpenDesktopPet}
+                className="cartoon-btn flex items-center justify-center gap-1.5 px-3.5 py-3 rounded-2xl bg-amber-100 hover:bg-amber-200 dark:bg-slate-800 text-amber-900 dark:text-amber-300 font-bold text-xs sm:text-sm border border-amber-300 dark:border-slate-700 shadow-sm"
+                title="Pop out Real Desktop Walking Pet"
+              >
+                <Monitor className="w-4 h-4 text-amber-600" />
+                <span className="hidden sm:inline">Desktop Pet</span>
+                <span className="sm:hidden">Pet</span>
               </button>
 
               <button
                 onClick={onOpenAddEvent}
-                className="cartoon-btn flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm shadow-md hover:shadow-amber-500/25"
+                className="cartoon-btn flex items-center justify-center gap-1.5 px-3.5 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-amber-500/25"
               >
                 <PlusCircle className="w-4 h-4" />
-                <span>Add Event</span>
+                <span>Add Task</span>
               </button>
             </div>
           </div>

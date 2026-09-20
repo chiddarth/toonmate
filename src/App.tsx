@@ -27,6 +27,7 @@ import { CharacterChatModal } from './components/chat/CharacterChatModal';
 import { DailySummaryModal } from './components/summary/DailySummaryModal';
 import { NotificationDrawer } from './components/notifications/NotificationDrawer';
 import { ReminderToast } from './components/notifications/ReminderToast';
+import { DesktopCompanionLauncher } from './components/character/DesktopCompanionLauncher';
 import { addMinutesToTime, getTodayDateString } from './utils/dateUtils';
 import confetti from 'canvas-confetti';
 
@@ -46,6 +47,7 @@ export const App: React.FC = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isDailySummaryOpen, setIsDailySummaryOpen] = useState(false);
   const [isNotifDrawerOpen, setIsNotifDrawerOpen] = useState(false);
+  const [isDesktopPetOpen, setIsDesktopPetOpen] = useState(false);
   const [activeAlert, setActiveAlert] = useState<ReminderAlert | null>(null);
 
   // Sync theme on HTML root
@@ -358,6 +360,7 @@ export const App: React.FC = () => {
           setIsEventModalOpen(true);
         }}
         onOpenDailySummary={() => setIsDailySummaryOpen(true)}
+        onOpenDesktopPet={() => setIsDesktopPetOpen(true)}
         onToggleSound={handleToggleSound}
         onToggleTheme={handleToggleTheme}
       />
@@ -388,6 +391,7 @@ export const App: React.FC = () => {
                   setModalDefaultDate(getTodayDateString());
                   setIsEventModalOpen(true);
                 }}
+                onOpenDesktopPet={() => setIsDesktopPetOpen(true)}
                 streakDays={progress.streakDays}
               />
             </div>
@@ -632,6 +636,14 @@ export const App: React.FC = () => {
             enabled: true,
           });
         }}
+      />
+
+      {/* Real Desktop Window Walking Companion Launcher */}
+      <DesktopCompanionLauncher
+        isOpen={isDesktopPetOpen}
+        onClose={() => setIsDesktopPetOpen(false)}
+        character={character}
+        todayEvents={todayEvents}
       />
     </div>
   );

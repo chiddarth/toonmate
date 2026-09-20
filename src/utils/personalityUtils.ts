@@ -106,8 +106,57 @@ export const getTaskMissedReaction = (
 
 export const getPokedReaction = (
   characterName: string,
-  personality: CharacterConfig['personality']
+  personality: CharacterConfig['personality'],
+  characterType?: CharacterConfig['type']
 ): { text: string; state: 'happy' | 'excited' | 'talking' } => {
+  // Special character-specific quips
+  if (characterType === 'shinchan') {
+    const shinchanQuotes: { text: string; state: 'happy' | 'excited' | 'talking' }[] = [
+      { text: `Oho! Don't poke me, handsome! Unless you brought some Chocobi! 🍫😜`, state: 'happy' },
+      { text: `ACTION KAMEN BEEEEAM! ⚡🦸‍♂️ Did I scare your procrastination away?!`, state: 'excited' },
+      { text: `Hey! Shh! Mom might hear us! Finish your tasks before she gets the rolling pin! 🏃‍♂️`, state: 'talking' },
+      { text: `Hehehe! Watch my eyebrows wiggle! Boop-boop! 💃✨`, state: 'happy' },
+    ];
+    return shinchanQuotes[Math.floor(Math.random() * shinchanQuotes.length)];
+  }
+
+  if (characterType === 'doraemon') {
+    const doraemonQuotes: { text: string; state: 'happy' | 'excited' | 'talking' }[] = [
+      { text: `Boku Doraemon! 🐱✨ Need a gadget to pause time? Sorry, only good planning works!`, state: 'talking' },
+      { text: `Take-copter activated! We're flying high above your schedule deadlines! 🚁`, state: 'excited' },
+      { text: `Mmm, is it Dorayaki time yet?! Finish your next event and let's celebrate! 🥞`, state: 'happy' },
+      { text: `Wait... was that a MOUSE?! 🐭 AAAAAAH! Oh, it was just your mouse cursor! 😅`, state: 'excited' },
+    ];
+    return doraemonQuotes[Math.floor(Math.random() * doraemonQuotes.length)];
+  }
+
+  if (characterType === 'pikachu') {
+    const pikachuQuotes: { text: string; state: 'happy' | 'excited' | 'talking' }[] = [
+      { text: `Pika-pika! ⚡ (Translation: Ready to shock your schedule with 100,000 volts of energy!)`, state: 'excited' },
+      { text: `Pika-chuuuu! ⭐ My red cheek pouches are fully charged for today's goals!`, state: 'excited' },
+      { text: `Pika-pi! Thanks for the friendly pat! Let's conquer the day together! 🐾`, state: 'happy' },
+    ];
+    return pikachuQuotes[Math.floor(Math.random() * pikachuQuotes.length)];
+  }
+
+  if (characterType === 'luffy') {
+    const luffyQuotes: { text: string; state: 'happy' | 'excited' | 'talking' }[] = [
+      { text: `I'm Monkey D. Luffy, the man who's gonna be the Pirate King! 🏴‍☠️🍖`, state: 'excited' },
+      { text: `Gomu Gomu no... FOCUS PUNCH! 💥 Let's crush this next activity!`, state: 'excited' },
+      { text: `I'm starving! MEAT! 🍖 Work hard now, feast like a king later! Shishishi!`, state: 'happy' },
+    ];
+    return luffyQuotes[Math.floor(Math.random() * luffyQuotes.length)];
+  }
+
+  if (characterType === 'hattori') {
+    const hattoriQuotes: { text: string; state: 'happy' | 'excited' | 'talking' }[] = [
+      { text: `Nin-nin! Kanzo Hattori is at your service! A true ninja never delays a mission! 🥷`, state: 'talking' },
+      { text: `Ding-ding! Ninja secret technique: Punctuality Jutsu activated! 📜✨`, state: 'excited' },
+      { text: `Steady mind and disciplined spirit. We will complete every task with ninja stealth! 🌸`, state: 'happy' },
+    ];
+    return hattoriQuotes[Math.floor(Math.random() * hattoriQuotes.length)];
+  }
+
   const quotes: Record<CharacterConfig['personality'], { text: string; state: 'happy' | 'excited' | 'talking' }[]> = {
     energetic: [
       { text: `WHOOSH! ${characterName} is charged to 1000%! Let's DO THIS! ⚡`, state: 'excited' },

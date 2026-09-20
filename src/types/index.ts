@@ -1,4 +1,4 @@
-export type CharacterType = 'panda' | 'robot' | 'cat' | 'dog' | 'fox' | 'superhero';
+export type CharacterType = 'shinchan' | 'doraemon' | 'pikachu' | 'luffy' | 'hattori' | 'panda' | 'robot';
 
 export type CharacterState = 
   | 'idle' 

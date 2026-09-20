@@ -25,12 +25,13 @@ interface WardrobeCustomizerProps {
 }
 
 const CHARACTERS: { type: CharacterType; defaultName: string; emoji: string; desc: string }[] = [
-  { type: 'panda', defaultName: 'Bambu', emoji: '🐼', desc: 'Chill, cuddly, and deeply loyal companion' },
+  { type: 'shinchan', defaultName: 'Shinchan', emoji: '👦', desc: 'Cheeky, hilarious, action-kamen loving boy with wiggling eyebrows' },
+  { type: 'doraemon', defaultName: 'Doraemon', emoji: '🐱', desc: '22nd-century robotic cat with magical 4D gadgets and dorayaki' },
+  { type: 'pikachu', defaultName: 'Pikachu', emoji: '⚡', desc: 'Electric mouse Pokemon charging your schedule with 100k volts' },
+  { type: 'luffy', defaultName: 'Luffy', emoji: '🍖', desc: 'Straw Hat captain determined to be King of Productivity' },
+  { type: 'hattori', defaultName: 'Hattori', emoji: '🥷', desc: 'Disciplined ninja master with punctuality jutsu and swirling cheeks' },
+  { type: 'panda', defaultName: 'Bambu', emoji: '🐼', desc: 'Chill, cuddly, and friendly panda companion' },
   { type: 'robot', defaultName: 'Sparky', emoji: '🤖', desc: 'High-tech organizer with glowing digital sensors' },
-  { type: 'cat', defaultName: 'Mochi', emoji: '🐱', desc: 'Curious, graceful, and purr-fectly punctual' },
-  { type: 'dog', defaultName: 'Barkley', emoji: '🐶', desc: 'Hyper-enthusiastic pup who celebrates every win' },
-  { type: 'fox', defaultName: 'Rusty', emoji: '🦊', desc: 'Clever, witty, and master of smart shortcuts' },
-  { type: 'superhero', defaultName: 'Cosmo', emoji: '🦸', desc: 'Cosmic protector of deadlines and daily goals' },
 ];
 
 const OUTFITS: { id: OutfitType; name: string; emoji: string }[] = [

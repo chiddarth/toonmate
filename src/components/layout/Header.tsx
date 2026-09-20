@@ -9,6 +9,7 @@ import {
   Plus,
   Moon,
   Sun,
+  Monitor,
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -20,6 +21,7 @@ interface HeaderProps {
   onOpenNotifications: () => void;
   onOpenAddEvent: () => void;
   onOpenDailySummary: () => void;
+  onOpenDesktopPet: () => void;
   onToggleSound: () => void;
   onToggleTheme: () => void;
 }
@@ -31,6 +33,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenNotifications,
   onOpenAddEvent,
   onOpenDailySummary,
+  onOpenDesktopPet,
   onToggleSound,
   onToggleTheme,
 }) => {
@@ -57,6 +60,16 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Right Quick Controls */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Desktop Pet Launcher Button */}
+          <button
+            onClick={onOpenDesktopPet}
+            className="cartoon-btn hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-amber-100 dark:bg-slate-800 hover:bg-amber-200 text-amber-900 dark:text-amber-300 text-xs font-bold border border-amber-300 dark:border-slate-700 shadow-xs"
+            title="Open Desktop Window Companion"
+          >
+            <Monitor className="w-4 h-4 text-amber-600" />
+            <span>Desktop Pet 🪟</span>
+          </button>
+
           {/* Daily Review Quick Button */}
           <button
             onClick={onOpenDailySummary}
