@@ -96,6 +96,7 @@ export interface UserProfile {
   speechPitch: number; // 0.8 to 1.5
   speechVolume: number; // 0 to 1
   defaultReminderMinutes: number;
+  animationsEnabled: boolean;
 }
 
 export interface ChatMessage {

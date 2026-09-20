@@ -80,13 +80,21 @@ class DesktopPet:
         self.canvas.bind("<Button-1>", self.on_click)
         self.canvas.bind("<B1-Motion>", self.on_drag)
         self.canvas.bind("<ButtonRelease-1>", self.on_release)
-        # Right click to close
+        # Right click to close / menu
         self.canvas.bind("<Button-3>", self.show_context_menu)
+        # Keyboard shortcuts to stop anytime
+        self.root.bind("<Escape>", lambda e: self.stop_pet())
+        self.root.bind("<q>", lambda e: self.stop_pet())
         
     def update_position(self):
         self.root.geometry(f"{self.width}x{self.height}+{int(self.x)}+{int(self.y)}")
 
     def on_click(self, event):
+        # Check if clicked on STOP button (top-right of bubble)
+        if 165 <= event.x <= 235 and 4 <= event.y <= 28:
+            self.stop_pet()
+            return
+
         self.drag_start_x = event.x
         self.drag_start_y = event.y
         self.is_dragging = False
@@ -100,9 +108,20 @@ class DesktopPet:
         self.update_position()
 
     def on_release(self, event):
+        # If clicked on STOP button, do not process
+        if 165 <= event.x <= 235 and 4 <= event.y <= 28:
+            return
+
         if not getattr(self, "is_dragging", False):
             # Clicked without dragging: Navigate to Web Page!
             self.navigate_to_app()
+
+    def stop_pet(self):
+        """Immediately stop and dismiss the desktop pet from the screen"""
+        try:
+            self.root.destroy()
+        except:
+            pass
 
     def navigate_to_app(self):
         """Focus or open the ToonMate webpage and calm the pet"""
@@ -202,10 +221,14 @@ class DesktopPet:
         self.canvas.create_polygon(cx - 5, bubble_y + 44, cx + 5, bubble_y + 44, cx, bubble_y + 54, fill="#ffffff", outline="#f59e0b", width=1)
         # Bubble text
         text_disp = self.bubble_text
-        if len(text_disp) > 34:
-            text_disp = text_disp[:32] + "..."
-        self.canvas.create_text(120, bubble_y + 16, text=text_disp, font=("Segoe UI", 8, "bold"), fill="#1e293b", width=200)
-        self.canvas.create_text(120, bubble_y + 32, text="👉 CLICK ME TO OPEN TOONMATE 👈", font=("Segoe UI", 7, "bold"), fill="#dc2626")
+        if len(text_disp) > 26:
+            text_disp = text_disp[:24] + "..."
+        self.canvas.create_text(92, bubble_y + 16, text=text_disp, font=("Segoe UI", 8, "bold"), fill="#1e293b", width=145)
+        self.canvas.create_text(95, bubble_y + 32, text="👉 CLICK ME TO OPEN TOONMATE 👈", font=("Segoe UI", 7, "bold"), fill="#dc2626")
+
+        # Draw prominent STOP Button (click to dismiss desktop pet)
+        self.canvas.create_rectangle(168, 6, 232, 26, fill="#ef4444", outline="#b91c1c", width=1.5)
+        self.canvas.create_text(200, 16, text="🛑 STOP", font=("Segoe UI", 7, "bold"), fill="#ffffff")
 
         # Draw Character based on character_type
         if self.character_type == "doraemon":

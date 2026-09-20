@@ -159,6 +159,7 @@ export const initialProfile: UserProfile = {
   speechPitch: 1.05,
   speechVolume: 0.9,
   defaultReminderMinutes: 15,
+  animationsEnabled: true,
 };
 
 export const initialCharacter: CharacterConfig = {

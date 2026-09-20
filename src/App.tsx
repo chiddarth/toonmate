@@ -285,6 +285,13 @@ export const App: React.FC = () => {
     storageService.saveProfile(updated);
   };
 
+  const handleToggleAnimations = () => {
+    const newVal = profile.animationsEnabled === false ? true : false;
+    const updated: UserProfile = { ...profile, animationsEnabled: newVal };
+    setProfile(updated);
+    storageService.saveProfile(updated);
+  };
+
   // --- DATA IMPORT / EXPORT ---
   const handleExportData = () => {
     audioService.playPop();
@@ -363,6 +370,7 @@ export const App: React.FC = () => {
         onOpenDesktopPet={() => setIsDesktopPetOpen(true)}
         onToggleSound={handleToggleSound}
         onToggleTheme={handleToggleTheme}
+        onToggleAnimations={handleToggleAnimations}
       />
 
       {/* Main Container */}
@@ -392,6 +400,7 @@ export const App: React.FC = () => {
                   setIsEventModalOpen(true);
                 }}
                 onOpenDesktopPet={() => setIsDesktopPetOpen(true)}
+                onToggleAnimations={handleToggleAnimations}
                 streakDays={progress.streakDays}
               />
             </div>

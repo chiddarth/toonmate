@@ -29,6 +29,8 @@ import {
   Flame,
   CheckCircle2,
   Monitor,
+  Play,
+  Square,
 } from 'lucide-react';
 
 interface CharacterCardProps {
@@ -38,6 +40,7 @@ interface CharacterCardProps {
   onOpenChat: () => void;
   onOpenAddEvent: () => void;
   onOpenDesktopPet: () => void;
+  onToggleAnimations?: () => void;
   streakDays: number;
 }
 
@@ -48,6 +51,7 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
   onOpenChat,
   onOpenAddEvent,
   onOpenDesktopPet,
+  onToggleAnimations,
   streakDays,
 }) => {
   const [characterState, setCharacterState] = useState<CharacterState>('idle');
@@ -224,19 +228,51 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center my-2">
         {/* Cartoon Character in Stage (Left / Center) */}
         <div className="lg:col-span-6 flex flex-col items-center justify-center">
-          <CharacterStage theme={character.background} className="w-full max-w-sm h-72 md:h-80">
-            <div className="flex flex-col items-center justify-center relative cursor-pointer group">
-              <AnimatedCharacter
-                config={character}
-                state={characterState}
-                size="xl"
-                onClick={handlePokeCharacter}
-              />
-              <span className="absolute -bottom-1 text-[11px] font-bold text-slate-600 dark:text-slate-300 bg-white/90 dark:bg-slate-900/90 px-3 py-1 rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-                <Sparkles className="w-3 h-3 text-amber-500" /> Tap to poke me!
-              </span>
-            </div>
-          </CharacterStage>
+          <div className="w-full max-w-sm relative">
+            <CharacterStage theme={character.background} className="w-full h-72 md:h-80">
+              <div className="flex flex-col items-center justify-center relative cursor-pointer group">
+                <AnimatedCharacter
+                  config={character}
+                  state={characterState}
+                  size="xl"
+                  onClick={handlePokeCharacter}
+                  animationsEnabled={profile.animationsEnabled !== false}
+                />
+                <span className="absolute -bottom-1 text-[11px] font-bold text-slate-600 dark:text-slate-300 bg-white/90 dark:bg-slate-900/90 px-3 py-1 rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                  <Sparkles className="w-3 h-3 text-amber-500" /> Tap to poke me!
+                </span>
+              </div>
+            </CharacterStage>
+
+            {/* Quick Stop / Resume Animation Button */}
+            {onToggleAnimations && (
+              <button
+                onClick={onToggleAnimations}
+                className={`absolute top-3 right-3 px-3 py-1.5 rounded-2xl text-xs font-bold shadow-md transition-all flex items-center gap-1.5 backdrop-blur-md ${
+                  profile.animationsEnabled !== false
+                    ? 'bg-rose-500/90 hover:bg-rose-600 text-white border border-rose-400 hover:scale-105 active:scale-95'
+                    : 'bg-emerald-500/90 hover:bg-emerald-600 text-white border border-emerald-400 hover:scale-105 active:scale-95'
+                }`}
+                title={
+                  profile.animationsEnabled !== false
+                    ? 'Stop character animations on screen'
+                    : 'Resume character animations'
+                }
+              >
+                {profile.animationsEnabled !== false ? (
+                  <>
+                    <Square className="w-3 h-3 fill-white" />
+                    <span>🛑 Stop Animation</span>
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-3 h-3 fill-white" />
+                    <span>▶ Play Animation</span>
+                  </>
+                )}
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Speech Bubble & Assistant Controls (Right) */}

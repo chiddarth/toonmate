@@ -26,16 +26,27 @@ export const DesktopCompanionLauncher: React.FC<DesktopCompanionLauncherProps> =
 }) => {
   const [pipActive, setPipActive] = useState(false);
   const [copyFeedback, setCopyFeedback] = useState(false);
+  const pipWindowRef = React.useRef<Window | null>(null);
 
   if (!isOpen) return null;
 
   const incompleteTasks = todayEvents.filter(e => !e.completed);
 
+  const handleStopPiP = () => {
+    if (pipWindowRef.current) {
+      try {
+        pipWindowRef.current.close();
+      } catch {}
+      pipWindowRef.current = null;
+    }
+    setPipActive(false);
+    audioService.playPop();
+  };
+
   // Modern W3C Document Picture-in-Picture API
   const handleLaunchPiP = async () => {
     audioService.playPop();
     try {
-      // Check for Document Picture-in-Picture support
       const winWithPiP = window as unknown as {
         documentPictureInPicture?: {
           requestWindow: (options: { width: number; height: number }) => Promise<Window>;
@@ -47,14 +58,13 @@ export const DesktopCompanionLauncher: React.FC<DesktopCompanionLauncherProps> =
       if (winWithPiP.documentPictureInPicture) {
         pipWindow = await winWithPiP.documentPictureInPicture.requestWindow({
           width: 320,
-          height: 380,
+          height: 390,
         });
       } else {
-        // Fallback to floating popup window
         pipWindow = window.open(
           '',
           'ToonMateDesktopPet',
-          'width=320,height=380,menubar=no,toolbar=no,location=no,status=no,resizable=yes'
+          'width=320,height=390,menubar=no,toolbar=no,location=no,status=no,resizable=yes'
         );
       }
 
@@ -63,15 +73,14 @@ export const DesktopCompanionLauncher: React.FC<DesktopCompanionLauncherProps> =
         return;
       }
 
+      pipWindowRef.current = pipWindow;
       setPipActive(true);
 
-      // Copy stylesheet links and fonts to the PiP window
       const styleLinks = Array.from(document.querySelectorAll('link[rel="stylesheet"], style'));
       styleLinks.forEach(el => {
         pipWindow?.document.head.appendChild(el.cloneNode(true));
       });
 
-      // Write styled HTML inside the floating OS window
       pipWindow.document.body.className = 'bg-amber-50 dark:bg-slate-950 text-slate-800 dark:text-white p-4 font-sans m-0 overflow-hidden flex flex-col items-center justify-between h-full select-none';
       
       const charQuotes: Record<string, string> = {
@@ -86,25 +95,31 @@ export const DesktopCompanionLauncher: React.FC<DesktopCompanionLauncherProps> =
 
       pipWindow.document.body.innerHTML = `
         <div style="font-family: system-ui, sans-serif; text-align: center; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100vh; padding: 12px; box-sizing: border-box; background: linear-gradient(to bottom, #fffbeb, #fef3c7);">
-          <div style="background: white; border: 2px solid #f59e0b; border-radius: 16px; padding: 8px 12px; font-size: 11px; font-weight: bold; color: #1e293b; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); width: 90%; animation: bounce 2s infinite;">
+          <div style="background: white; border: 2px solid #f59e0b; border-radius: 16px; padding: 8px 12px; font-size: 11px; font-weight: bold; color: #1e293b; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); width: 90%;">
             <p style="margin: 0 0 4px 0;">${quote}</p>
             <span style="color: #ea580c; font-size: 10px;">⚠️ ${incompleteTasks.length} task(s) remaining today!</span>
           </div>
 
-          <div id="pet-container" style="cursor: pointer; transform-origin: center; animation: walk 3s ease-in-out infinite;">
+          <div id="pet-container" style="cursor: pointer; transform-origin: center;">
             <div style="font-size: 80px; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));">
               ${character.type === 'shinchan' ? '👦' : character.type === 'doraemon' ? '🐱' : character.type === 'pikachu' ? '⚡' : character.type === 'luffy' ? '🍖' : '🥷'}
             </div>
             <p style="margin: 0; font-size: 12px; font-weight: 800; color: #78350f;">${character.name}</p>
           </div>
 
-          <button id="go-btn" style="width: 100%; padding: 10px; background: #f59e0b; color: white; border: none; border-radius: 14px; font-weight: bold; font-size: 12px; cursor: pointer; box-shadow: 0 4px 10px rgba(245,158,11,0.4); display: flex; align-items: center; justify-content: center; gap: 6px;">
-            <span>🚀 Focus ToonMate Tab</span>
-          </button>
+          <div style="width: 100%; display: flex; flex-direction: column; gap: 8px;">
+            <button id="go-btn" style="width: 100%; padding: 9px; background: #f59e0b; color: white; border: none; border-radius: 12px; font-weight: bold; font-size: 12px; cursor: pointer; box-shadow: 0 4px 8px rgba(245,158,11,0.3);">
+              🚀 Focus ToonMate Tab
+            </button>
+            <button id="stop-btn" style="width: 100%; padding: 8px; background: #ef4444; color: white; border: none; border-radius: 12px; font-weight: bold; font-size: 11px; cursor: pointer;">
+              🛑 Stop & Close Desktop Pet
+            </button>
+          </div>
         </div>
       `;
 
       const goBtn = pipWindow.document.getElementById('go-btn');
+      const stopBtn = pipWindow.document.getElementById('stop-btn');
       const petContainer = pipWindow.document.getElementById('pet-container');
 
       const focusTab = () => {
@@ -114,6 +129,7 @@ export const DesktopCompanionLauncher: React.FC<DesktopCompanionLauncherProps> =
 
       if (goBtn) goBtn.onclick = focusTab;
       if (petContainer) petContainer.onclick = focusTab;
+      if (stopBtn) stopBtn.onclick = handleStopPiP;
 
       pipWindow.onpagehide = () => {
         setPipActive(false);
@@ -189,13 +205,36 @@ export const DesktopCompanionLauncher: React.FC<DesktopCompanionLauncherProps> =
               </p>
             </div>
 
-            <button
-              onClick={handleLaunchPiP}
-              className="cartoon-btn px-4 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-md shrink-0 flex items-center justify-center gap-1.5"
-            >
-              <ExternalLink className="w-4 h-4" />
-              <span>{pipActive ? 'Re-dock Window' : 'Pop Out Desktop Pet'}</span>
-            </button>
+            <div className="flex items-center gap-2 shrink-0">
+              {pipActive ? (
+                <>
+                  <button
+                    onClick={handleStopPiP}
+                    className="cartoon-btn px-3.5 py-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs shadow-md flex items-center gap-1.5"
+                    title="Stop and close floating desktop companion"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                    <span>🛑 Stop Pet</span>
+                  </button>
+                  <button
+                    onClick={handleLaunchPiP}
+                    className="cartoon-btn px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-md flex items-center gap-1.5"
+                    title="Bring window to front"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>Focus Pet</span>
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={handleLaunchPiP}
+                  className="cartoon-btn px-4 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-md shrink-0 flex items-center justify-center gap-1.5"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span>Pop Out Desktop Pet</span>
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Option 2: Native Windows Transparent Shimeji */}
@@ -220,6 +259,10 @@ export const DesktopCompanionLauncher: React.FC<DesktopCompanionLauncherProps> =
               >
                 {copyFeedback ? '✓ Copied!' : 'Copy'}
               </button>
+            </div>
+
+            <div className="flex items-center gap-1.5 text-[11px] font-semibold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 px-3 py-1.5 rounded-xl border border-rose-200 dark:border-rose-900/50">
+              <span>🛑 To Stop: Click the red <strong>[🛑 STOP]</strong> button above the pet, or press <strong>ESC / Q</strong>, or <strong>Ctrl+C</strong> in terminal.</span>
             </div>
           </div>
         </div>

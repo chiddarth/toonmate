@@ -10,6 +10,8 @@ import {
   Moon,
   Sun,
   Monitor,
+  Play,
+  Square,
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -24,6 +26,7 @@ interface HeaderProps {
   onOpenDesktopPet: () => void;
   onToggleSound: () => void;
   onToggleTheme: () => void;
+  onToggleAnimations?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -36,6 +39,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenDesktopPet,
   onToggleSound,
   onToggleTheme,
+  onToggleAnimations,
 }) => {
   return (
     <header className="sticky top-0 z-40 bg-white/85 dark:bg-slate-900/85 backdrop-blur-md border-b-2 border-amber-200/80 dark:border-slate-800 transition-colors">
@@ -43,7 +47,12 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Brand / Logo */}
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-amber-100 dark:bg-slate-800 border-2 border-amber-300 dark:border-indigo-800 flex items-center justify-center overflow-hidden shadow-sm">
-            <AnimatedCharacter config={character} state="happy" size="sm" />
+            <AnimatedCharacter
+              config={character}
+              state="happy"
+              size="sm"
+              animationsEnabled={profile.animationsEnabled !== false}
+            />
           </div>
           <div>
             <h1 className="text-xl sm:text-2xl font-black tracking-tight text-slate-800 dark:text-white flex items-center gap-1.5">
@@ -99,6 +108,32 @@ export const Header: React.FC<HeaderProps> = ({
               <VolumeX className="w-4 h-4 sm:w-5 sm:h-5" />
             )}
           </button>
+
+          {/* Animation Stop / Play Toggle */}
+          {onToggleAnimations && (
+            <button
+              onClick={() => {
+                audioService.playPop();
+                onToggleAnimations();
+              }}
+              className={`p-2 sm:p-2.5 rounded-2xl border transition-all ${
+                profile.animationsEnabled !== false
+                  ? 'bg-rose-50 dark:bg-slate-800 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-slate-700'
+                  : 'bg-emerald-50 dark:bg-slate-800 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-slate-700'
+              }`}
+              title={
+                profile.animationsEnabled !== false
+                  ? 'Stop character screen animation'
+                  : 'Play character screen animation'
+              }
+            >
+              {profile.animationsEnabled !== false ? (
+                <Square className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
+              ) : (
+                <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
+              )}
+            </button>
+          )}
 
           {/* Dark / Light Theme Toggle */}
           <button

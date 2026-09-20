@@ -8,6 +8,7 @@ interface AnimatedCharacterProps {
   onClick?: () => void;
   className?: string;
   showAccessories?: boolean;
+  animationsEnabled?: boolean;
 }
 
 export const AnimatedCharacter: React.FC<AnimatedCharacterProps> = ({
@@ -17,6 +18,7 @@ export const AnimatedCharacter: React.FC<AnimatedCharacterProps> = ({
   onClick,
   className = '',
   showAccessories = true,
+  animationsEnabled = true,
 }) => {
   const sizeClasses = {
     sm: 'w-24 h-24',
@@ -26,6 +28,7 @@ export const AnimatedCharacter: React.FC<AnimatedCharacterProps> = ({
   };
 
   const getAnimationClass = () => {
+    if (!animationsEnabled) return '';
     switch (state) {
       case 'idle':
         return 'anim-breathing';
@@ -55,7 +58,7 @@ export const AnimatedCharacter: React.FC<AnimatedCharacterProps> = ({
     return (
       <>
         {state === 'sleeping' && (
-          <g className="anim-zzz select-none pointer-events-none">
+          <g className={`${animationsEnabled ? 'anim-zzz' : ''} select-none pointer-events-none`}>
             {/* Snot bubble for anime sleeping */}
             <circle cx="112" cy="98" r="8" fill="#bae6fd" opacity="0.75" stroke="#38bdf8" strokeWidth="1.5" />
             <text x="145" y="45" fill="#818cf8" fontSize="18" fontWeight="bold" fontFamily="sans-serif">Z</text>
@@ -65,7 +68,7 @@ export const AnimatedCharacter: React.FC<AnimatedCharacterProps> = ({
         )}
 
         {state === 'worried' && (
-          <g className="anim-sweat pointer-events-none">
+          <g className={`${animationsEnabled ? 'anim-sweat' : ''} pointer-events-none`}>
             <path
               d="M 148 55 C 148 55, 142 65, 142 70 A 6 6 0 0 0 154 70 C 154 65, 148 55, 148 55 Z"
               fill="#38bdf8"
@@ -75,7 +78,7 @@ export const AnimatedCharacter: React.FC<AnimatedCharacterProps> = ({
         )}
 
         {state === 'sad' && (
-          <g className="anim-sweat pointer-events-none">
+          <g className={`${animationsEnabled ? 'anim-sweat' : ''} pointer-events-none`}>
             <ellipse cx="80" cy="100" rx="3" ry="6" fill="#38bdf8" opacity="0.85" />
           </g>
         )}
@@ -95,7 +98,7 @@ export const AnimatedCharacter: React.FC<AnimatedCharacterProps> = ({
         )}
 
         {(state === 'celebrating' || state === 'excited') && (
-          <g className="pointer-events-none animate-pulse">
+          <g className={`pointer-events-none ${animationsEnabled ? 'animate-pulse' : ''}`}>
             <text x="30" y="35" fontSize="18">✨</text>
             <text x="165" y="30" fontSize="20">🎉</text>
             <text x="25" y="145" fontSize="16">⭐</text>

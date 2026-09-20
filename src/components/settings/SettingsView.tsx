@@ -17,6 +17,7 @@ import {
   RotateCcw,
   Check,
   Play,
+  Sparkles,
 } from 'lucide-react';
 
 interface SettingsViewProps {
@@ -245,6 +246,37 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                 <span>Cosmic Dark</span>
               </button>
             </div>
+          </div>
+
+          {/* Character Animation Movement Toggle */}
+          <div>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
+              Character Screen Animations
+            </label>
+            <button
+              type="button"
+              onClick={() => {
+                const updated = {
+                  ...currentProfile,
+                  animationsEnabled: currentProfile.animationsEnabled === false ? true : false,
+                };
+                setCurrentProfile(updated);
+                onSaveProfile(updated);
+              }}
+              className={`w-full py-2.5 px-4 rounded-2xl border-2 text-xs font-bold flex items-center justify-between transition-all ${
+                currentProfile.animationsEnabled !== false
+                  ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-200'
+                  : 'border-rose-300 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/40 text-rose-900 dark:text-rose-200'
+              }`}
+            >
+              <span className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-amber-500" />
+                <span>Character Motion & Idle Animation</span>
+              </span>
+              <span className="font-extrabold uppercase">
+                {currentProfile.animationsEnabled !== false ? 'Active (Bouncing & Walking)' : 'Stopped (Calm Static)'}
+              </span>
+            </button>
           </div>
         </div>
 
