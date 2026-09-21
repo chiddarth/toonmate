@@ -28,6 +28,9 @@ import { DailySummaryModal } from './components/summary/DailySummaryModal';
 import { NotificationDrawer } from './components/notifications/NotificationDrawer';
 import { ReminderToast } from './components/notifications/ReminderToast';
 import { DesktopCompanionLauncher } from './components/character/DesktopCompanionLauncher';
+import { AuthModal } from './components/auth/AuthModal';
+import { authService } from './services/authService';
+import { AuthUser } from './types/auth';
 import { addMinutesToTime, getTodayDateString } from './utils/dateUtils';
 import confetti from 'canvas-confetti';
 
@@ -39,6 +42,7 @@ export const App: React.FC = () => {
   const [progress, setProgress] = useState<UserProgress>(() => storageService.getProgress());
   const [achievements, setAchievements] = useState<Achievement[]>(() => storageService.getAchievements());
   const [notifications, setNotifications] = useState<AppNotification[]>(() => storageService.getNotifications());
+  const [currentUser, setCurrentUser] = useState<AuthUser | null>(() => authService.getCurrentUser());
 
   const [currentTab, setCurrentTab] = useState<NavigationTab>('home');
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -48,6 +52,8 @@ export const App: React.FC = () => {
   const [isDailySummaryOpen, setIsDailySummaryOpen] = useState(false);
   const [isNotifDrawerOpen, setIsNotifDrawerOpen] = useState(false);
   const [isDesktopPetOpen, setIsDesktopPetOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authModalMode, setAuthModalMode] = useState<'login' | 'register'>('login');
   const [activeAlert, setActiveAlert] = useState<ReminderAlert | null>(null);
 
   // Sync theme on HTML root
@@ -346,6 +352,34 @@ export const App: React.FC = () => {
     setNotifications([]);
   };
 
+  // Auth Handlers
+  const handleAuthSuccess = (user: AuthUser) => {
+    setCurrentUser(user);
+    // Update active profile name so cartoon greetings address the user properly
+    const updatedProfile: UserProfile = { ...profile, name: user.name };
+    setProfile(updatedProfile);
+    storageService.saveProfile(updatedProfile);
+
+    // If user picked a favorite character during registration, switch companion
+    if (user.favoriteCharacter && user.favoriteCharacter !== character.type) {
+      const updatedChar: CharacterConfig = { ...character, type: user.favoriteCharacter };
+      setCharacter(updatedChar);
+      storageService.saveCharacter(updatedChar);
+    }
+  };
+
+  const handleLogout = () => {
+    audioService.playPop();
+    authService.logout();
+    setCurrentUser(null);
+    storageService.addNotification({
+      title: 'Signed Out',
+      message: 'You have been successfully signed out. See you next time!',
+      type: 'info',
+    });
+    setNotifications(storageService.getNotifications());
+  };
+
   // Today's events filter
   const todayStr = getTodayDateString();
   const todayEvents = events.filter(e => e.date === todayStr);
@@ -371,6 +405,12 @@ export const App: React.FC = () => {
         onToggleSound={handleToggleSound}
         onToggleTheme={handleToggleTheme}
         onToggleAnimations={handleToggleAnimations}
+        currentUser={currentUser}
+        onOpenAuthModal={mode => {
+          setAuthModalMode(mode || 'login');
+          setIsAuthModalOpen(true);
+        }}
+        onLogout={handleLogout}
       />
 
       {/* Main Container */}
@@ -653,6 +693,15 @@ export const App: React.FC = () => {
         onClose={() => setIsDesktopPetOpen(false)}
         character={character}
         todayEvents={todayEvents}
+      />
+
+      {/* Authentication Modal (Login & Registration) */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        initialMode={authModalMode}
+        onClose={() => setIsAuthModalOpen(false)}
+        onAuthSuccess={handleAuthSuccess}
+        character={character}
       />
     </div>
   );

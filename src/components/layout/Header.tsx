@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { CharacterConfig, NavigationTab, UserProfile } from '../../types';
+import { AuthUser } from '../../types/auth';
 import { AnimatedCharacter } from '../character/AnimatedCharacter';
 import { audioService } from '../../services/audioService';
 import {
@@ -12,6 +13,10 @@ import {
   Monitor,
   Play,
   Square,
+  User,
+  LogOut,
+  LogIn,
+  UserPlus,
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -27,6 +32,9 @@ interface HeaderProps {
   onToggleSound: () => void;
   onToggleTheme: () => void;
   onToggleAnimations?: () => void;
+  currentUser?: AuthUser | null;
+  onOpenAuthModal: (mode?: 'login' | 'register') => void;
+  onLogout: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -40,7 +48,23 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleSound,
   onToggleTheme,
   onToggleAnimations,
+  currentUser,
+  onOpenAuthModal,
+  onLogout,
 }) => {
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
+        setIsUserMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
   return (
     <header className="sticky top-0 z-40 bg-white/85 dark:bg-slate-900/85 backdrop-blur-md border-b-2 border-amber-200/80 dark:border-slate-800 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-3">
@@ -179,6 +203,98 @@ export const Header: React.FC<HeaderProps> = ({
             <Plus className="w-4 h-4" />
             <span className="hidden sm:inline">Add Task</span>
           </button>
+
+          {/* User Account / Auth Dropdown */}
+          <div className="relative" ref={userMenuRef}>
+            {currentUser ? (
+              <button
+                onClick={() => {
+                  audioService.playPop();
+                  setIsUserMenuOpen(!isUserMenuOpen);
+                }}
+                className="cartoon-btn flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-2xl bg-amber-50 dark:bg-slate-800 hover:bg-amber-100 dark:hover:bg-slate-750 text-slate-800 dark:text-white border-2 border-amber-300 dark:border-slate-700 shadow-xs transition-all"
+                title="Your Account"
+              >
+                <span className="text-lg leading-none">{currentUser.avatar || '🐼'}</span>
+                <span className="text-xs font-bold hidden md:inline max-w-[85px] truncate">
+                  {currentUser.name}
+                </span>
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  audioService.playPop();
+                  onOpenAuthModal('login');
+                }}
+                className="cartoon-btn flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-extrabold shadow-sm"
+              >
+                <LogIn className="w-3.5 h-3.5" />
+                <span>Log In</span>
+              </button>
+            )}
+
+            {/* User Dropdown Menu */}
+            {isUserMenuOpen && currentUser && (
+              <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-slate-900 rounded-3xl border-2 border-amber-200 dark:border-slate-800 shadow-2xl p-4 z-50 animate-in fade-in zoom-in-95 duration-150">
+                <div className="flex items-center gap-3 pb-3 border-b border-slate-100 dark:border-slate-800 mb-3">
+                  <div className="w-11 h-11 rounded-2xl bg-amber-100 dark:bg-slate-800 border-2 border-amber-300 dark:border-slate-700 flex items-center justify-center text-2xl shadow-inner shrink-0">
+                    {currentUser.avatar || '🐼'}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-extrabold text-sm text-slate-800 dark:text-white truncate">
+                      {currentUser.name}
+                    </p>
+                    <p className="text-[11px] text-slate-400 truncate">
+                      @{currentUser.username}
+                    </p>
+                    <p className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold truncate">
+                      {currentUser.email}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <button
+                    onClick={() => {
+                      audioService.playPop();
+                      setIsUserMenuOpen(false);
+                      onOpenAuthModal('login');
+                    }}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-left text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-amber-50 dark:hover:bg-slate-800 transition-colors"
+                  >
+                    <LogIn className="w-4 h-4 text-amber-500" />
+                    <span>Switch / Log In Another User</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      audioService.playPop();
+                      setIsUserMenuOpen(false);
+                      onOpenAuthModal('register');
+                    }}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-left text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-amber-50 dark:hover:bg-slate-800 transition-colors"
+                  >
+                    <UserPlus className="w-4 h-4 text-indigo-500" />
+                    <span>Register New Account</span>
+                  </button>
+
+                  <div className="pt-2 border-t border-slate-100 dark:border-slate-800 mt-2">
+                    <button
+                      onClick={() => {
+                        audioService.playPop();
+                        setIsUserMenuOpen(false);
+                        onLogout();
+                      }}
+                      className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-left text-xs font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      <span>Sign Out</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>
