@@ -84,6 +84,12 @@ export const DesktopCompanionLauncher: React.FC<DesktopCompanionLauncherProps> =
       pipWindow.document.body.className = 'bg-amber-50 dark:bg-slate-950 text-slate-800 dark:text-white p-4 font-sans m-0 overflow-hidden flex flex-col items-center justify-between h-full select-none';
       
       const charQuotes: Record<string, string> = {
+        panda: "Munching bamboo and watching your tasks! Stay cozy and productive! 🎋🐼",
+        robot: "Beep boop! Optimal productivity protocol engaged! Let's conquer the day! 🤖⚡",
+        cat: "Purrrr! Time to pounce on those upcoming events! 🐾🐱",
+        dog: "Barkley is ready to fetch today's achievements with you! 🐶🎾",
+        fox: "Rusty's sharp eyes are on your schedule! Outsmart the clock! 🦊🍂",
+        superhero: "Cosmo guarding your milestones across the cosmos! Up, up, and focus! 🦸‍♂️✨",
         shinchan: "Oho! Don't slack off! I'm watching you from your desktop! 😜",
         doraemon: "Anywhere Door won't save you if you miss your schedule! 🐱🚪",
         pikachu: "Pika-chuuu! Zap that procrastination right now! ⚡",
@@ -93,11 +99,25 @@ export const DesktopCompanionLauncher: React.FC<DesktopCompanionLauncherProps> =
 
       const quote = charQuotes[character.type] || "I'm on your desktop! Finish your tasks! 👀";
 
+      const emojiMap: Record<string, string> = {
+        panda: '🐼',
+        robot: '🤖',
+        cat: '🐱',
+        dog: '🐶',
+        fox: '🦊',
+        superhero: '🦸',
+        shinchan: '👦',
+        doraemon: '🐱',
+        pikachu: '⚡',
+        luffy: '🍖',
+        hattori: '🥷',
+      };
+
       const modalSvg = document.querySelector('#modal-mascot-preview svg');
       const characterGraphic = modalSvg
         ? `<div style="width: 135px; height: 135px; margin: 0 auto; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 8px 14px rgba(0,0,0,0.16));">${modalSvg.outerHTML}</div>`
         : `<div style="font-size: 80px; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));">
-            ${character.type === 'shinchan' ? '👦' : character.type === 'doraemon' ? '🐱' : character.type === 'pikachu' ? '⚡' : character.type === 'luffy' ? '🍖' : '🥷'}
+            ${emojiMap[character.type] || '🐼'}
           </div>`;
 
       pipWindow.document.body.innerHTML = `

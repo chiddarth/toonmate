@@ -24,14 +24,28 @@ interface WardrobeCustomizerProps {
   onSpeakPreview?: (text: string) => void;
 }
 
-const CHARACTERS: { type: CharacterType; defaultName: string; emoji: string; desc: string }[] = [
-  { type: 'shinchan', defaultName: 'Shinchan', emoji: '👦', desc: 'Cheeky, hilarious, action-kamen loving boy with wiggling eyebrows' },
-  { type: 'doraemon', defaultName: 'Doraemon', emoji: '🐱', desc: '22nd-century robotic cat with magical 4D gadgets and dorayaki' },
-  { type: 'pikachu', defaultName: 'Pikachu', emoji: '⚡', desc: 'Electric mouse Pokemon charging your schedule with 100k volts' },
-  { type: 'luffy', defaultName: 'Luffy', emoji: '🍖', desc: 'Straw Hat captain determined to be King of Productivity' },
-  { type: 'hattori', defaultName: 'Hattori', emoji: '🥷', desc: 'Disciplined ninja master with punctuality jutsu and swirling cheeks' },
-  { type: 'panda', defaultName: 'Bambu', emoji: '🐼', desc: 'Chill, cuddly, and friendly panda companion' },
-  { type: 'robot', defaultName: 'Sparky', emoji: '🤖', desc: 'High-tech organizer with glowing digital sensors' },
+export interface CharacterOption {
+  type: CharacterType;
+  defaultName: string;
+  emoji: string;
+  desc: string;
+  category: 'original' | 'anime';
+}
+
+const CHARACTERS: CharacterOption[] = [
+  // Original ToonMates
+  { type: 'panda', defaultName: 'Bambu', emoji: '🐼', desc: 'Chill, cuddly, and friendly panda companion with cozy vibes', category: 'original' },
+  { type: 'robot', defaultName: 'Sparky', emoji: '🤖', desc: 'High-tech organizer with glowing digital sensors and futuristic precision', category: 'original' },
+  { type: 'cat', defaultName: 'Mochi', emoji: '🐱', desc: 'Playful, purr-fectly organized kitten with swift paws and high energy', category: 'original' },
+  { type: 'dog', defaultName: 'Barkley', emoji: '🐶', desc: 'Loyal, bouncy golden pup eager to fetch every goal on your schedule', category: 'original' },
+  { type: 'fox', defaultName: 'Rusty', emoji: '🦊', desc: 'Clever, witty forest fox with sharp productivity tricks and keen focus', category: 'original' },
+  { type: 'superhero', defaultName: 'Cosmo', emoji: '🦸', desc: 'Galactic crusader guarding your daily schedule across the universe', category: 'original' },
+  // Anime Legends
+  { type: 'shinchan', defaultName: 'Shinchan', emoji: '👦', desc: 'Cheeky, hilarious, action-kamen loving boy with wiggling eyebrows', category: 'anime' },
+  { type: 'doraemon', defaultName: 'Doraemon', emoji: '🐱', desc: '22nd-century robotic cat with magical 4D gadgets and dorayaki', category: 'anime' },
+  { type: 'pikachu', defaultName: 'Pikachu', emoji: '⚡', desc: 'Electric mouse Pokemon charging your schedule with 100k volts', category: 'anime' },
+  { type: 'luffy', defaultName: 'Luffy', emoji: '🍖', desc: 'Straw Hat captain determined to be King of Productivity', category: 'anime' },
+  { type: 'hattori', defaultName: 'Hattori', emoji: '🥷', desc: 'Disciplined ninja master with punctuality jutsu and swirling cheeks', category: 'anime' },
 ];
 
 const OUTFITS: { id: OutfitType; name: string; emoji: string }[] = [
@@ -93,6 +107,7 @@ export const WardrobeCustomizer: React.FC<WardrobeCustomizerProps> = ({
   const [config, setConfig] = useState<CharacterConfig>(character);
   const [previewState, setPreviewState] = useState<'idle' | 'happy' | 'excited' | 'celebrating'>('happy');
   const [savedToast, setSavedToast] = useState(false);
+  const [categoryFilter, setCategoryFilter] = useState<'all' | 'original' | 'anime'>('all');
 
   const handleSelectType = (type: CharacterType) => {
     audioService.playPop();
@@ -228,26 +243,72 @@ export const WardrobeCustomizer: React.FC<WardrobeCustomizerProps> = ({
         <div className="lg:col-span-7 space-y-6">
           {/* 1. Character Species */}
           <div className="cartoon-card bg-white dark:bg-slate-900 border-2 border-amber-200/80 dark:border-slate-800 p-5 shadow-xl">
-            <h3 className="text-base font-bold text-slate-800 dark:text-white mb-3 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-amber-500" />
-              <span>Choose Your Cartoon Companion</span>
-            </h3>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+              <h3 className="text-base font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-amber-500" />
+                <span>Choose Your Cartoon Companion</span>
+              </h3>
+              <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+                <button
+                  type="button"
+                  onClick={() => setCategoryFilter('all')}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                    categoryFilter === 'all'
+                      ? 'bg-white dark:bg-slate-700 text-amber-600 dark:text-amber-400 shadow-sm'
+                      : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                  }`}
+                >
+                  All (11)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCategoryFilter('original')}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                    categoryFilter === 'original'
+                      ? 'bg-white dark:bg-slate-700 text-amber-600 dark:text-amber-400 shadow-sm'
+                      : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                  }`}
+                >
+                  🐾 Original (6)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCategoryFilter('anime')}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                    categoryFilter === 'anime'
+                      ? 'bg-white dark:bg-slate-700 text-amber-600 dark:text-amber-400 shadow-sm'
+                      : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                  }`}
+                >
+                  🎌 Anime (5)
+                </button>
+              </div>
+            </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {CHARACTERS.map(c => {
+              {CHARACTERS.filter(c => categoryFilter === 'all' || c.category === categoryFilter).map(c => {
                 const isSelected = config.type === c.type;
                 return (
                   <button
                     key={c.type}
                     type="button"
                     onClick={() => handleSelectType(c.type)}
-                    className={`p-3.5 rounded-2xl border-2 text-left transition-all ${
+                    className={`relative p-3.5 rounded-2xl border-2 text-left transition-all ${
                       isSelected
                         ? 'border-amber-500 bg-amber-50/80 dark:bg-amber-950/40 ring-2 ring-amber-400/40 scale-102'
                         : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-850 hover:border-amber-300'
                     }`}
                   >
-                    <div className="text-3xl mb-1">{c.emoji}</div>
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-3xl">{c.emoji}</span>
+                      <span className={`text-[9px] font-extrabold px-1.5 py-0.5 rounded-full uppercase ${
+                        c.category === 'original'
+                          ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300'
+                          : 'bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300'
+                      }`}>
+                        {c.category === 'original' ? 'Original' : 'Anime'}
+                      </span>
+                    </div>
                     <p className="font-bold text-sm text-slate-800 dark:text-white">{c.defaultName}</p>
                     <p className="text-[11px] text-slate-500 line-clamp-2 mt-0.5">{c.desc}</p>
                   </button>

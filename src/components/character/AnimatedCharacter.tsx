@@ -875,43 +875,348 @@ export const AnimatedCharacter: React.FC<AnimatedCharacterProps> = ({
     );
   };
 
-  // Bonus: Panda & Robot
+  // Helpers for original ToonMate mascots
+  const renderEyes = (
+    leftX: number,
+    rightX: number,
+    eyeY: number,
+    radius: number,
+    color = '#1e293b'
+  ) => {
+    if (state === 'sleeping') {
+      return (
+        <g stroke={color} strokeWidth="2.5" strokeLinecap="round">
+          <line x1={leftX - radius} y1={eyeY} x2={leftX + radius} y2={eyeY} />
+          <line x1={rightX - radius} y1={eyeY} x2={rightX + radius} y2={eyeY} />
+        </g>
+      );
+    }
+    return (
+      <g className={animationsEnabled ? 'anim-blinking' : ''} style={{ transformOrigin: `100px ${eyeY}px` }}>
+        <circle cx={leftX} cy={eyeY} r={radius} fill={color} />
+        <circle cx={leftX - radius * 0.3} cy={eyeY - radius * 0.3} r={radius * 0.35} fill="#ffffff" />
+        <circle cx={rightX} cy={eyeY} r={radius} fill={color} />
+        <circle cx={rightX - radius * 0.3} cy={eyeY - radius * 0.3} r={radius * 0.35} fill="#ffffff" />
+      </g>
+    );
+  };
+
+  const renderMouth = (centerX: number, mouthY: number, strokeColor = '#1e293b') => {
+    if (state === 'talking') {
+      return (
+        <ellipse
+          cx={centerX}
+          cy={mouthY}
+          rx="6"
+          ry="5"
+          fill="#ef4444"
+          stroke={strokeColor}
+          strokeWidth="1.5"
+          className={animationsEnabled ? 'anim-talking' : ''}
+        />
+      );
+    }
+    if (state === 'happy' || state === 'excited' || state === 'celebrating') {
+      return (
+        <path
+          d={`M ${centerX - 7} ${mouthY - 2} Q ${centerX} ${mouthY + 7} ${centerX + 7} ${mouthY - 2} Z`}
+          fill="#ef4444"
+          stroke={strokeColor}
+          strokeWidth="1.5"
+        />
+      );
+    }
+    return (
+      <path
+        d={`M ${centerX - 6} ${mouthY} Q ${centerX} ${mouthY + 4} ${centerX + 6} ${mouthY}`}
+        fill="none"
+        stroke={strokeColor}
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    );
+  };
+
+  // ==========================================
+  // ORIGINAL TOONMATE CHARACTERS
+  // ==========================================
+
+  // 1. PANDA (Bambu)
   const renderPanda = () => (
     <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-md">
-      <circle cx="58" cy="55" r="22" fill="#1e293b" />
-      <circle cx="142" cy="55" r="22" fill="#1e293b" />
-      <ellipse cx="100" cy="140" rx="55" ry="46" fill="#ffffff" stroke="#1e293b" strokeWidth="3" />
+      {/* Shadow */}
+      <ellipse cx="100" cy="188" rx="46" ry="8" fill="rgba(0,0,0,0.12)" />
+
+      {/* Round Black Ears */}
+      <circle cx="56" cy="54" r="22" fill="#18181b" stroke="#09090b" strokeWidth="2" />
+      <circle cx="144" cy="54" r="22" fill="#18181b" stroke="#09090b" strokeWidth="2" />
+
+      {/* White Body */}
+      <ellipse cx="100" cy="142" rx="55" ry="46" fill="#ffffff" stroke="#18181b" strokeWidth="2.5" />
       <ellipse cx="100" cy="146" rx="36" ry="30" fill="#f8fafc" />
-      <circle cx="100" cy="92" r="50" fill="#ffffff" stroke="#1e293b" strokeWidth="3" />
-      <ellipse cx="78" cy="88" rx="14" ry="17" fill="#1e293b" transform="rotate(-15 78 88)" />
-      <ellipse cx="122" cy="88" rx="14" ry="17" fill="#1e293b" transform="rotate(15 122 88)" />
-      <circle cx="78" cy="88" r="5" fill="#ffffff" />
-      <circle cx="122" cy="88" r="5" fill="#ffffff" />
-      <ellipse cx="100" cy="102" rx="13" ry="9" fill="#f1f5f9" />
-      <polygon points="100,99 95,95 105,95" fill="#0f172a" />
-      <path d="M 94 106 Q 100 110 106 106" fill="none" stroke="#0f172a" strokeWidth="2" />
+
+      {/* Black Arm Bands */}
+      <path d="M 45 132 Q 60 120 75 136" stroke="#18181b" strokeWidth="8" strokeLinecap="round" fill="none" />
+      <path d="M 155 132 Q 140 120 125 136" stroke="#18181b" strokeWidth="8" strokeLinecap="round" fill="none" />
+
+      {/* Head */}
+      <circle cx="100" cy="92" r="50" fill="#ffffff" stroke="#18181b" strokeWidth="2.5" />
+
+      {/* Iconic Panda Eye Patches */}
+      <ellipse cx="78" cy="88" rx="14" ry="17" fill="#18181b" transform="rotate(-15 78 88)" />
+      <ellipse cx="122" cy="88" rx="14" ry="17" fill="#18181b" transform="rotate(15 122 88)" />
+
+      {/* Eyes inside patches */}
+      {renderEyes(78, 122, 88, 5, '#ffffff')}
+
+      {/* Snout Area */}
+      <ellipse cx="100" cy="103" rx="14" ry="10" fill="#f1f5f9" />
+      <polygon points="100,100 95,96 105,96" fill="#09090b" />
+      {renderMouth(100, 107, '#18181b')}
+
+      {/* Rosy Cheeks */}
+      <ellipse cx="64" cy="104" rx="7" ry="4" fill="#fda4af" opacity="0.6" />
+      <ellipse cx="136" cy="104" rx="7" ry="4" fill="#fda4af" opacity="0.6" />
+
       {renderAccessory(100, 88, 124)}
       {renderStateOverlays()}
     </svg>
   );
 
+  // 2. ROBOT (Sparky)
   const renderRobot = () => (
     <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-md">
-      <line x1="100" y1="35" x2="100" y2="52" stroke="#64748b" strokeWidth="4" strokeLinecap="round" />
-      <circle cx="100" cy="32" r="9" fill="#06b6d4" className="animate-pulse" />
-      <rect x="58" y="120" width="84" height="60" rx="16" fill="#38bdf8" stroke="#0284c7" strokeWidth="3" />
-      <rect x="52" y="52" width="96" height="72" rx="20" fill="#bae6fd" stroke="#0284c7" strokeWidth="3" />
+      {/* Shadow */}
+      <ellipse cx="100" cy="188" rx="46" ry="8" fill="rgba(0,0,0,0.12)" />
+
+      {/* Antenna with pulsing light */}
+      <line x1="100" y1="34" x2="100" y2="52" stroke="#64748b" strokeWidth="4" strokeLinecap="round" />
+      <circle cx="100" cy="30" r="9" fill="#06b6d4" className={animationsEnabled ? 'animate-pulse' : ''} />
+
+      {/* Body */}
+      <rect x="58" y="120" width="84" height="60" rx="16" fill="#38bdf8" stroke="#0284c7" strokeWidth="2.5" />
+      {/* Chest screen / battery gauge */}
+      <rect x="76" y="136" width="48" height="24" rx="6" fill="#0f172a" />
+      <rect x="80" y="140" width="12" height="16" rx="2" fill="#22c55e" />
+      <rect x="94" y="140" width="12" height="16" rx="2" fill="#22c55e" />
+      <rect x="108" y="140" width="12" height="16" rx="2" fill="#38bdf8" />
+
+      {/* Head */}
+      <rect x="52" y="52" width="96" height="72" rx="20" fill="#bae6fd" stroke="#0284c7" strokeWidth="2.5" />
+      {/* Screen Visor */}
       <rect x="62" y="65" width="76" height="46" rx="12" fill="#0f172a" />
-      <circle cx="80" cy="84" r="6" fill="#38bdf8" />
-      <circle cx="120" cy="84" r="6" fill="#38bdf8" />
-      <rect x="92" y="100" width="16" height="4" rx="2" fill="#38bdf8" />
+
+      {/* Digital Glowing Eyes */}
+      {state === 'sleeping' ? (
+        <g stroke="#38bdf8" strokeWidth="3" strokeLinecap="round">
+          <line x1="72" y1="84" x2="88" y2="84" />
+          <line x1="112" y1="84" x2="128" y2="84" />
+        </g>
+      ) : (
+        <g className={animationsEnabled ? 'anim-blinking' : ''} style={{ transformOrigin: '100px 84px' }}>
+          <circle cx="80" cy="84" r="6.5" fill="#38bdf8" />
+          <circle cx="120" cy="84" r="6.5" fill="#38bdf8" />
+          <circle cx="78" cy="82" r="2" fill="#ffffff" />
+          <circle cx="118" cy="82" r="2" fill="#ffffff" />
+        </g>
+      )}
+
+      {/* Mouth */}
+      {state === 'talking' ? (
+        <rect x="90" y="98" width="20" height="8" rx="2" fill="#38bdf8" className={animationsEnabled ? 'anim-talking' : ''} />
+      ) : (
+        <rect x="92" y="100" width="16" height="4" rx="2" fill="#38bdf8" />
+      )}
+
       {renderAccessory(100, 84, 122)}
+      {renderStateOverlays()}
+    </svg>
+  );
+
+  // 3. CAT (Mochi)
+  const renderCat = () => (
+    <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-md">
+      {/* Shadow */}
+      <ellipse cx="100" cy="188" rx="46" ry="8" fill="rgba(0,0,0,0.12)" />
+
+      {/* Tail */}
+      <path d="M 145 150 Q 185 140 175 110 Q 165 100 160 115" fill="none" stroke="#f97316" strokeWidth="8" strokeLinecap="round" />
+
+      {/* Ears */}
+      <polygon points="56,38 78,74 46,72" fill="#fb923c" stroke="#ea580c" strokeWidth="2" />
+      <polygon points="60,48 74,70 52,69" fill="#fbcfe8" />
+      <polygon points="144,38 122,74 154,72" fill="#fb923c" stroke="#ea580c" strokeWidth="2" />
+      <polygon points="140,48 126,70 148,69" fill="#fbcfe8" />
+
+      {/* Body */}
+      <ellipse cx="100" cy="142" rx="52" ry="44" fill="#fed7aa" stroke="#ea580c" strokeWidth="2.5" />
+      <ellipse cx="100" cy="148" rx="34" ry="28" fill="#fff7ed" />
+
+      {/* Head */}
+      <circle cx="100" cy="92" r="48" fill="#fed7aa" stroke="#ea580c" strokeWidth="2.5" />
+
+      {/* Calico spot */}
+      <path d="M 68 55 Q 85 58 80 75 Q 65 72 68 55 Z" fill="#ea580c" />
+
+      {/* Whiskers */}
+      <g stroke="#78350f" strokeWidth="2" strokeLinecap="round">
+        <line x1="50" y1="98" x2="28" y2="94" />
+        <line x1="50" y1="104" x2="26" y2="108" />
+        <line x1="150" y1="98" x2="172" y2="94" />
+        <line x1="150" y1="104" x2="174" y2="108" />
+      </g>
+
+      {/* Eyes */}
+      {renderEyes(80, 120, 90, 6, '#78350f')}
+
+      {/* Nose & Mouth */}
+      <polygon points="100,101 96,97 104,97" fill="#f43f5e" />
+      {renderMouth(100, 107, '#78350f')}
+
+      {/* Cheeks */}
+      <ellipse cx="68" cy="104" rx="6" ry="4" fill="#fda4af" opacity="0.6" />
+      <ellipse cx="132" cy="104" rx="6" ry="4" fill="#fda4af" opacity="0.6" />
+
+      {renderAccessory(100, 90, 125)}
+      {renderStateOverlays()}
+    </svg>
+  );
+
+  // 4. DOG (Barkley)
+  const renderDog = () => (
+    <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-md">
+      {/* Shadow */}
+      <ellipse cx="100" cy="188" rx="46" ry="8" fill="rgba(0,0,0,0.12)" />
+
+      {/* Floppy Ears */}
+      <ellipse cx="50" cy="85" rx="16" ry="32" fill="#b45309" stroke="#78350f" strokeWidth="2" transform="rotate(15 50 85)" />
+      <ellipse cx="150" cy="85" rx="16" ry="32" fill="#b45309" stroke="#78350f" strokeWidth="2" transform="rotate(-15 150 85)" />
+
+      {/* Body */}
+      <ellipse cx="100" cy="142" rx="54" ry="44" fill="#fcd34d" stroke="#b45309" strokeWidth="2.5" />
+      <ellipse cx="100" cy="148" rx="34" ry="28" fill="#fef3c7" />
+
+      {/* Head */}
+      <circle cx="100" cy="90" r="48" fill="#fcd34d" stroke="#b45309" strokeWidth="2.5" />
+
+      {/* Eyes */}
+      {renderEyes(80, 120, 86, 6, '#451a03')}
+
+      {/* Big Snout */}
+      <ellipse cx="100" cy="104" rx="22" ry="15" fill="#fef3c7" stroke="#d97706" strokeWidth="1.5" />
+      <ellipse cx="100" cy="98" rx="10" ry="7" fill="#1e293b" />
+
+      {/* Mouth with cute tongue if happy/excited */}
+      {state === 'happy' || state === 'excited' || state === 'celebrating' ? (
+        <g>
+          <path d="M 94 107 Q 100 112 106 107" fill="none" stroke="#451a03" strokeWidth="2" />
+          <path d="M 97 109 Q 100 119 105 117 Q 108 112 105 109 Z" fill="#f43f5e" />
+        </g>
+      ) : (
+        renderMouth(100, 108, '#451a03')
+      )}
+
+      {/* Cheeks */}
+      <ellipse cx="68" cy="102" rx="6" ry="4" fill="#fbcfe8" opacity="0.7" />
+      <ellipse cx="132" cy="102" rx="6" ry="4" fill="#fbcfe8" opacity="0.7" />
+
+      {renderAccessory(100, 86, 124)}
+      {renderStateOverlays()}
+    </svg>
+  );
+
+  // 5. FOX (Rusty)
+  const renderFox = () => (
+    <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-md">
+      {/* Shadow */}
+      <ellipse cx="100" cy="188" rx="46" ry="8" fill="rgba(0,0,0,0.12)" />
+
+      {/* Bushy Tail */}
+      <path d="M 140 160 Q 190 145 185 100 Q 170 85 155 110 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="2" />
+      <path d="M 185 100 Q 170 85 160 98 Q 175 105 185 100 Z" fill="#ffffff" />
+
+      {/* Pointy Ears */}
+      <polygon points="52,28 78,68 44,66" fill="#ea580c" stroke="#c2410c" strokeWidth="2" />
+      <polygon points="56,38 72,64 48,63" fill="#ffffff" />
+      <polygon points="148,28 122,68 156,66" fill="#ea580c" stroke="#c2410c" strokeWidth="2" />
+      <polygon points="144,38 128,64 152,63" fill="#ffffff" />
+
+      {/* Body */}
+      <ellipse cx="100" cy="144" rx="50" ry="42" fill="#ea580c" stroke="#c2410c" strokeWidth="2.5" />
+      <ellipse cx="100" cy="148" rx="30" ry="26" fill="#ffffff" />
+
+      {/* Head */}
+      <circle cx="100" cy="92" r="46" fill="#ea580c" stroke="#c2410c" strokeWidth="2.5" />
+
+      {/* White facial mask */}
+      <path d="M 60 90 Q 75 118 100 118 Q 125 118 140 90 Q 100 98 60 90 Z" fill="#ffffff" />
+
+      {/* Eyes */}
+      {renderEyes(82, 118, 88, 5.5, '#431407')}
+
+      {/* Black Nose */}
+      <polygon points="100,107 95,102 105,102" fill="#0f172a" />
+      {renderMouth(100, 112, '#431407')}
+
+      {/* Cheeks */}
+      <ellipse cx="68" cy="100" rx="5" ry="3" fill="#fda4af" opacity="0.6" />
+      <ellipse cx="132" cy="100" rx="5" ry="3" fill="#fda4af" opacity="0.6" />
+
+      {renderAccessory(100, 88, 126)}
+      {renderStateOverlays()}
+    </svg>
+  );
+
+  // 6. SUPERHERO (Cosmo)
+  const renderSuperhero = () => (
+    <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-md">
+      {/* Shadow */}
+      <ellipse cx="100" cy="188" rx="46" ry="8" fill="rgba(0,0,0,0.12)" />
+
+      {/* Floating Cape background */}
+      <path d="M 60 110 Q 30 150 40 180 Q 100 170 160 180 Q 170 150 140 110 Z" fill="#4f46e5" stroke="#3730a3" strokeWidth="2" />
+
+      {/* Body (Hero suit) */}
+      <ellipse cx="100" cy="144" rx="48" ry="42" fill="#3b82f6" stroke="#1d4ed8" strokeWidth="2.5" />
+      {/* Chest Star Emblem */}
+      <circle cx="100" cy="144" r="16" fill="#fbbf24" stroke="#d97706" strokeWidth="2" />
+      <polygon points="100,132 104,141 114,142 106,148 109,157 100,152 91,157 94,148 86,142 96,141" fill="#ffffff" />
+
+      {/* Head */}
+      <circle cx="100" cy="88" r="46" fill="#fed7aa" stroke="#f97316" strokeWidth="2.5" />
+      {/* Hero Mask / Cowl */}
+      <path d="M 58 72 Q 100 62 142 72 Q 146 95 130 98 Q 100 88 70 98 Q 54 95 58 72 Z" fill="#4f46e5" stroke="#3730a3" strokeWidth="2" />
+
+      {/* Eyes inside mask */}
+      {renderEyes(82, 118, 85, 5.5, '#ffffff')}
+
+      {/* Mouth */}
+      {renderMouth(100, 110, '#9a3412')}
+
+      {/* Heroic Hair tuft */}
+      <path d="M 85 45 Q 100 30 115 42 Q 125 45 120 54 Q 100 48 85 45 Z" fill="#1e1b4b" />
+
+      {renderAccessory(100, 85, 122)}
       {renderStateOverlays()}
     </svg>
   );
 
   const renderCharacterSVG = () => {
     switch (config.type) {
+      case 'panda':
+        return renderPanda();
+      case 'robot':
+        return renderRobot();
+      case 'cat':
+        return renderCat();
+      case 'dog':
+        return renderDog();
+      case 'fox':
+        return renderFox();
+      case 'superhero':
+        return renderSuperhero();
+      case 'shinchan':
+        return renderShinchan();
       case 'doraemon':
         return renderDoraemon();
       case 'pikachu':
@@ -920,13 +1225,8 @@ export const AnimatedCharacter: React.FC<AnimatedCharacterProps> = ({
         return renderLuffy();
       case 'hattori':
         return renderHattori();
-      case 'panda':
-        return renderPanda();
-      case 'robot':
-        return renderRobot();
-      case 'shinchan':
       default:
-        return renderShinchan();
+        return renderPanda();
     }
   };
 

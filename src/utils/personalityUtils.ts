@@ -110,6 +110,66 @@ export const getPokedReaction = (
   characterType?: CharacterConfig['type']
 ): { text: string; state: 'happy' | 'excited' | 'talking' } => {
   // Special character-specific quips
+  if (characterType === 'panda') {
+    const pandaQuotes: { text: string; state: 'happy' | 'excited' | 'talking' }[] = [
+      { text: `*Munch munch* Bamboo snack break is over! Ready to organize your day! 🎋🐼`, state: 'happy' },
+      { text: `Bear hug! Remember to drink some water and stretch your paws! 🐾💚`, state: 'happy' },
+      { text: `Bambu reporting for cozy productivity duty! Let's get things rolling! 🐼✨`, state: 'excited' },
+      { text: `Roll roll! That poke tickled my fluffy belly! What's next on our list? 🎋`, state: 'talking' },
+    ];
+    return pandaQuotes[Math.floor(Math.random() * pandaQuotes.length)];
+  }
+
+  if (characterType === 'robot') {
+    const robotQuotes: { text: string; state: 'happy' | 'excited' | 'talking' }[] = [
+      { text: `BEEP BOOP! Schedule optimization subroutines running at 100%! 🤖⚡`, state: 'excited' },
+      { text: `Sensory scan complete! Calculating 99.9% probability of a successful day! 📊💻`, state: 'talking' },
+      { text: `*Whirrrr-click!* Cyber core charged! Ready for your next command! 🦾`, state: 'excited' },
+      { text: `Affirmative! Sparky is synchronized and monitoring all target deadlines! 🚀`, state: 'happy' },
+    ];
+    return robotQuotes[Math.floor(Math.random() * robotQuotes.length)];
+  }
+
+  if (characterType === 'cat') {
+    const catQuotes: { text: string; state: 'happy' | 'excited' | 'talking' }[] = [
+      { text: `Purrrr! Mochi here! Let's pounce on those upcoming deadlines! 🐾🐱`, state: 'happy' },
+      { text: `Meow! Did someone say completed task? That deserves some catnip! 🐟✨`, state: 'excited' },
+      { text: `*Nuzzles your cursor* You're doing paw-sitively awesome today! 😸`, state: 'happy' },
+      { text: `Ears up and claws ready! No procrastination allowed in this dojo! 🐾`, state: 'talking' },
+    ];
+    return catQuotes[Math.floor(Math.random() * catQuotes.length)];
+  }
+
+  if (characterType === 'dog') {
+    const dogQuotes: { text: string; state: 'happy' | 'excited' | 'talking' }[] = [
+      { text: `*Tail wagging furiously!* Barkley is READY! What task are we fetching today?! 🐶🎾`, state: 'excited' },
+      { text: `Woof woof! Best human ever! Let's go conquer that next milestone! 🦴⭐`, state: 'happy' },
+      { text: `*Happy panting* I fetched your schedule right on time! You're the best! 🐕`, state: 'happy' },
+      { text: `Ruff! Good energy only! Let's chase down every single goal! 🐾✨`, state: 'talking' },
+    ];
+    return dogQuotes[Math.floor(Math.random() * dogQuotes.length)];
+  }
+
+  if (characterType === 'fox') {
+    const foxQuotes: { text: string; state: 'happy' | 'excited' | 'talking' }[] = [
+      { text: `Ring-ding-ding! Rusty's clever schedule trick #42: Do it now, relax later! 🦊🍂`, state: 'excited' },
+      { text: `Sharp mind, quick wits! We foxes know how to outsmart procrastination! 🌲✨`, state: 'happy' },
+      { text: `Sneaky good focus today! Let's stay two steps ahead of the clock! 🦊`, state: 'talking' },
+      { text: `Tail swishing with clever ideas! Let's make this day unforgettable! 🍁`, state: 'happy' },
+    ];
+    return foxQuotes[Math.floor(Math.random() * foxQuotes.length)];
+  }
+
+  if (characterType === 'superhero') {
+    const superheroQuotes: { text: string; state: 'happy' | 'excited' | 'talking' }[] = [
+      { text: `Justice never sleeps, and neither does a well-planned calendar! Up, up and away! 🦸‍♂️⚡`, state: 'excited' },
+      { text: `By the power of punctuality! No evil delay shall defeat our schedule today! 🛡️💥`, state: 'excited' },
+      { text: `Fear not, citizen! Cosmo is guarding your goals from the clutches of distraction! 🚀⭐`, state: 'talking' },
+      { text: `Cape fluttering in the productivity breeze! Victory awaits on your next milestone! 🌟`, state: 'happy' },
+    ];
+    return superheroQuotes[Math.floor(Math.random() * superheroQuotes.length)];
+  }
+
   if (characterType === 'shinchan') {
     const shinchanQuotes: { text: string; state: 'happy' | 'excited' | 'talking' }[] = [
       { text: `Oho! Don't poke me, handsome! Unless you brought some Chocobi! 🍫😜`, state: 'happy' },

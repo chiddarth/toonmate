@@ -164,9 +164,9 @@ export const initialProfile: UserProfile = {
 
 export const initialCharacter: CharacterConfig = {
   id: 'char-default',
-  name: 'Shinchan',
-  type: 'shinchan',
-  personality: 'funny',
-  outfit: 'none',
+  name: 'Bambu',
+  type: 'panda',
+  personality: 'friendly',
+  outfit: 'bowtie',
   background: 'cozy-study',
 };

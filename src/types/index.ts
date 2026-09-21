@@ -1,4 +1,15 @@
-export type CharacterType = 'shinchan' | 'doraemon' | 'pikachu' | 'luffy' | 'hattori' | 'panda' | 'robot';
+export type CharacterType = 
+  | 'panda' 
+  | 'robot' 
+  | 'cat' 
+  | 'dog' 
+  | 'fox' 
+  | 'superhero' 
+  | 'shinchan' 
+  | 'doraemon' 
+  | 'pikachu' 
+  | 'luffy' 
+  | 'hattori';
 
 export type CharacterState = 
   | 'idle' 
